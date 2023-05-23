@@ -4,11 +4,11 @@ import Footer from '../components/Footer'
 
 const HomePage: React.FC = () => {
 	return (
-		<div className="bg-gray-100">
+		<div className="">
 			<header className="bg-white shadow">
 				<Navbar />
 			</header>
-			<main className="bg-white dark:bg-gray-900">
+			<main className="">
 				<div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
 					<div className="mr-auto place-self-center lg:col-span-7">
 						<h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
@@ -37,13 +37,10 @@ const HomePage: React.FC = () => {
 							Speak to Sales
 						</a>
 					</div>
-					<div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-						<img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup" />
-					</div>
 				</div>
 			</main>
 
-			<section className="text-gray-400 bg-gray-900 py-8 text-center">
+			<section className="text-gray-400  py-8 text-center">
 				<div className="container mx-auto px-4">
 					<h2 className="text-3xl font-bold mb-4">Trending Now</h2>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -69,7 +66,7 @@ const HomePage: React.FC = () => {
 				</div>
 			</section>
 
-			<section className="text-gray-400 bg-gray-900 body-font">
+			<section className="text-gray-400  body-font">
 				<div className="container px-5 py-24 mx-auto">
 					<div className="text-center mb-20">
 						<h1 className="sm:text-3xl text-2xl font-medium title-font text-white mb-4">Raw Denim Heirloom Man Braid</h1>
