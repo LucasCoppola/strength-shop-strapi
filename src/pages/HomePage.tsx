@@ -5,41 +5,40 @@ import Footer from '../components/Footer'
 const HomePage: React.FC = () => {
 	return (
 		<>
-			<header className="bg-white shadow">
+			<div className="bg-image">
 				<Navbar />
-			</header>
-			<main className="py-16">
-				<div className="container mx-auto px-4">
-					<div className="text-center relative">
-						<h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-6">Welcome to Strength Shop</h1>
-						<p className="text-lg lg:text-xl text-white mb-8">
-							Discover high-quality strength training equipment and accessories for your fitness journey.
-						</p>
-						<a href="#" className="btn-primary">
-							Shop Now
-						</a>
+				<main className="py-16">
+					<div className="container mx-auto px-4 flex align-middle justify-center">
+						<div className="text-center relative">
+							<h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-6">Welcome to Strength Shop</h1>
+							<p className="text-lg lg:text-xl text-white mb-8">
+								Discover high-quality strength training equipment and accessories for your fitness journey.
+							</p>
+							<a href="#" className="button-46 mt-28 mx-auto">
+								Shop Now
+							</a>
+						</div>
 					</div>
-				</div>
-			</main>
-
+				</main>
+			</div>
 			<section className="text-gray-400  py-8 text-center">
 				<div className="container mx-auto px-4">
 					<h2 className="text-3xl font-bold mb-4">Trending Now</h2>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-						<div className="bg-white rounded-lg shadow-md p-4">
-							<img className="w-full h-auto mb-4 rounded-lg" src="https://example.com/product1.jpg" alt="Product 1" />
+						<div className=" rounded-lg shadow-md p-4">
+							{/* <img className="w-full h-auto mb-4 rounded-lg" src="https://example.com/product1.jpg" alt="Product 1" /> */}
 							<h3 className="text-xl font-bold mb-2">Product 1</h3>
 							<p className="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Buy Now</button>
 						</div>
-						<div className="bg-white rounded-lg shadow-md p-4">
-							<img className="w-full h-auto mb-4 rounded-lg" src="https://example.com/product2.jpg" alt="Product 2" />
+						<div className=" rounded-lg shadow-md p-4">
+							{/* <img className="w-full h-auto mb-4 rounded-lg" src="https://example.com/product2.jpg" alt="Product 2" /> */}
 							<h3 className="text-xl font-bold mb-2">Product 2</h3>
 							<p className="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Buy Now</button>
 						</div>
-						<div className="bg-white rounded-lg shadow-md p-4">
-							<img className="w-full h-auto mb-4 rounded-lg" src="https://example.com/product3.jpg" alt="Product 3" />
+						<div className=" rounded-lg shadow-md p-4">
+							{/* <img className="w-full h-auto mb-4 rounded-lg" src="https://example.com/product3.jpg" alt="Product 3" /> */}
 							<h3 className="text-xl font-bold mb-2">Product 3</h3>
 							<p className="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Buy Now</button>
@@ -65,9 +64,9 @@ const HomePage: React.FC = () => {
 								<svg
 									fill="none"
 									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									className="w-10 h-10"
 									viewBox="0 0 24 24"
 								>
@@ -85,9 +84,9 @@ const HomePage: React.FC = () => {
 									<svg
 										fill="none"
 										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
 										className="w-4 h-4 ml-2"
 										viewBox="0 0 24 24"
 									>
@@ -101,9 +100,9 @@ const HomePage: React.FC = () => {
 								<svg
 									fill="none"
 									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									className="w-10 h-10"
 									viewBox="0 0 24 24"
 								>
@@ -123,9 +122,9 @@ const HomePage: React.FC = () => {
 									<svg
 										fill="none"
 										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
 										className="w-4 h-4 ml-2"
 										viewBox="0 0 24 24"
 									>
@@ -139,9 +138,9 @@ const HomePage: React.FC = () => {
 								<svg
 									fill="none"
 									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									className="w-10 h-10"
 									viewBox="0 0 24 24"
 								>
@@ -160,9 +159,9 @@ const HomePage: React.FC = () => {
 									<svg
 										fill="none"
 										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
 										className="w-4 h-4 ml-2"
 										viewBox="0 0 24 24"
 									>
