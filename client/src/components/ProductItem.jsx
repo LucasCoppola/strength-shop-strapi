@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ProductItem = ({ product }) => {
+	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
+
 	return (
 		<div key={product.id} className="group relative">
 			<div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 ">
-				<img src={product.image?.url} alt={product.name} className="object-cover object-center " />
+				<img src={image} alt={product.name} className="object-cover object-center " />
 			</div>
 			<div className="mt-4 flex justify-between">
 				<div>
@@ -16,7 +18,7 @@ const ProductItem = ({ product }) => {
 						{/* </a> */}
 					</h3>
 				</div>
-				<p className="text-base font-medium text-white">$ {product.price.raw}</p>
+				<p className="text-base font-medium text-white">$ {product.price}</p>
 			</div>
 		</div>
 	)

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Commerce from '@chec/commerce.js'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -9,21 +8,17 @@ import PropTypes from 'prop-types'
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
 
-const commercePublicKey = import.meta.env.VITE_COMMERCE_JS_PUBLIC_KEY
-const commerce = new Commerce(commercePublicKey)
-
 const HomePage = () => {
 	const [products, setProducts] = useState([])
 
 	const fetchProducts = () => {
-		commerce.products
-			.list()
-			.then((products) => {
-				setProducts(products.data)
-			})
-			.catch((error) => {
-				console.log('There was an error fetching the products', error)
-			})
+		const headers = {
+			Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`
+		}
+
+		fetch(import.meta.env.VITE_API_URL + '/items?populate=*', { headers })
+			.then((res) => res.json())
+			.then((data) => setProducts(data.data))
 	}
 
 	useEffect(() => {
@@ -58,7 +53,7 @@ const HomePage = () => {
 
 						<div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-10">
 							{products.map((product) => (
-								<ProductItem key={product.id} product={product} />
+								<ProductItem key={product.id} product={product.attributes} />
 							))}
 						</div>
 					</div>
