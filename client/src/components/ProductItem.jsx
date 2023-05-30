@@ -6,19 +6,21 @@ const ProductItem = ({ product }) => {
 
 	return (
 		<div key={product.id} className="group relative">
-			<div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 ">
-				<img src={image} alt={product.name} className="object-cover object-center " />
+			<div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full transform overflow-hidden rounded-md shadow-2xl transition duration-300 ease-in-out hover:scale-105">
+				<div className="flex h-full items-center justify-center">
+					<img src={image} alt={product.name} className="max-h-full object-cover object-center" />
+				</div>
 			</div>
 			<div className="mt-4 flex justify-between">
 				<div>
-					<h3 className="text-base text-white">
+					<h3 className="text-base text-gray-900">
 						{/* <a href={product.href}> */}
 						<span aria-hidden="true" className="absolute inset-0" />
 						{product.name}
 						{/* </a> */}
 					</h3>
 				</div>
-				<p className="text-base font-medium text-white">$ {product.price}</p>
+				<p className="text-base font-medium text-gray-900">$ {product.price}</p>
 			</div>
 		</div>
 	)
