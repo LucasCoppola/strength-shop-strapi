@@ -1,85 +1,58 @@
-import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa'
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
 
 function Footer() {
 	return (
-		<footer className="bg-neutral-900">
-			<div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-				<div className="md:flex md:justify-between">
-					<div className="mb-6 md:mb-0">
-						<a href="https://flowbite.com/" className="flex items-center">
-							<img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="FlowBite Logo" />
-							<span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">Strenght Shop</span>
+		<footer className="bg-gray-200 text-gray-900">
+			<div className="container mx-auto px-6 py-8">
+				<div className="flex flex-col items-center text-center">
+					<a href="#">
+						<img className="h-7 w-auto" src="https://merakiui.com/images/full-logo.svg" alt="" />
+					</a>
+
+					<div className="-mx-4 mt-6 flex flex-wrap justify-center">
+						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
+							{' '}
+							Home{' '}
 						</a>
-					</div>
-					<div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
-						<div>
-							<h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">Resources</h2>
-							<ul className="font-medium text-gray-600 dark:text-gray-400">
-								<li className="mb-4">
-									<a href="https://flowbite.com/" className="hover:underline">
-										Flowbite
-									</a>
-								</li>
-								<li>
-									<a href="https://tailwindcss.com/" className="hover:underline">
-										Tailwind CSS
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div>
-							<h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">Follow us</h2>
-							<ul className="font-medium text-gray-600 dark:text-gray-400">
-								<li className="mb-4">
-									<a href="https://github.com/themesberg/flowbite" className="hover:underline ">
-										Github
-									</a>
-								</li>
-								<li>
-									<a href="https://discord.gg/4eeurUVvTy" className="hover:underline">
-										Discord
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div>
-							<h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">Legal</h2>
-							<ul className="font-medium text-gray-600 dark:text-gray-400">
-								<li className="mb-4">
-									<a href="#" className="hover:underline">
-										Privacy Policy
-									</a>
-								</li>
-								<li>
-									<a href="#" className="hover:underline">
-										Terms &amp; Conditions
-									</a>
-								</li>
-							</ul>
-						</div>
+
+						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
+							{' '}
+							About{' '}
+						</a>
+
+						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
+							{' '}
+							Teams{' '}
+						</a>
+
+						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
+							{' '}
+							Privacy{' '}
+						</a>
+
+						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
+							{' '}
+							Cookies{' '}
+						</a>
 					</div>
 				</div>
-				<hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
-				<div className="sm:flex sm:items-center sm:justify-between">
-					<span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
-						© 2023{' '}
-						<a href="https://flowbite.com/" className="hover:underline">
-							Flowbite™
-						</a>
-						. All Rights Reserved.
-					</span>
-					<div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-						<a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+
+				<hr className="my-6 border-gray-200 dark:border-gray-700 md:my-10" />
+
+				<div className="flex flex-col items-center sm:flex-row sm:justify-between">
+					<p className="text-sm">© Copyright 2021. All Rights Reserved.</p>
+
+					<div className="-mx-2 flex">
+						<a href="#" className="mx-2 transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
 							<FaFacebook />
 						</a>
-						<a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-							<FaInstagram />
-						</a>
-						<a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-							<FaGithub />
-						</a>
-						<a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+
+						<a href="#" className="mx-2 transition-colors duration-300 hover:text-blue-500" aria-label="Facebook">
 							<FaTwitter />
+						</a>
+
+						<a href="#" className="mx-2 transition-colors duration-300 hover:text-blue-500" aria-label="Github">
+							<FaInstagram />
 						</a>
 					</div>
 				</div>
