@@ -13,14 +13,14 @@ const ProductItem = ({ product }) => {
 			</div>
 			<div className="mt-4 flex justify-between">
 				<div>
-					<h3 className="text-base text-gray-900">
+					<h3 className="text-base font-semibold text-gray-900">
 						{/* <a href={product.href}> */}
 						<span aria-hidden="true" className="absolute inset-0" />
 						{product.name}
 						{/* </a> */}
 					</h3>
 				</div>
-				<p className="text-base font-medium text-gray-900">$ {product.price}</p>
+				<p className="text-base font-semibold text-gray-900">$ {product.price}</p>
 			</div>
 		</div>
 	)
