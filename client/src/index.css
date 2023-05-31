@@ -11,7 +11,7 @@ body {
 
 .bg-image {
 	height: 100vh;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('../wheight.jpg');
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('../assets/wheight.jpg');
 	background-size: cover;
 	background-position: center;
 	background-color: transparent !important;
