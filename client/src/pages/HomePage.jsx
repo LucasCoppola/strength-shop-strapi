@@ -26,26 +26,23 @@ const HomePage = () => {
 	}, [])
 	console.log(products)
 
-	const callouts = [
+	const imageCategory = [
 		{
 			name: 'Rigs & Racks',
-			description: 'Journals and note-taking',
 			imageSrc: '../../assets/rack.webp',
-			imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
+			imageAlt: 'Single gym rack',
 			href: '#'
 		},
 		{
 			name: 'Powerlifting',
-			description: 'Work from home accessories',
 			imageSrc: '../../assets/powerlifting.jpg',
-			imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
+			imageAlt: 'Bar with plates',
 			href: '#'
 		},
 		{
 			name: 'Calisthenics',
-			description: 'Daily commute essentials',
 			imageSrc: '../../assets/calisthenics.jpg',
-			imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
+			imageAlt: 'Pair of parallettes',
 			href: '#'
 		}
 	]
@@ -92,31 +89,31 @@ const HomePage = () => {
 								<div className="group relative h-full">
 									<div className="relative overflow-hidden rounded-[1rem]" style={{ height: '100%' }}>
 										<img
-											src={callouts[0].imageSrc}
-											alt={callouts[0].imageAlt}
+											src={imageCategory[0].imageSrc}
+											alt={imageCategory[0].imageAlt}
 											className="h-full w-full object-cover object-center brightness-50 filter"
 											style={{ height: '100%' }}
 										/>
-										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{callouts[0].name}</p>
+										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[0].name}</p>
 									</div>
 								</div>
 							</div>
 							<div className="space-y-6 lg:w-2/3">
 								<div className="relative h-80 overflow-hidden rounded-[1rem] bg-white group-hover:opacity-75">
 									<img
-										src={callouts[1].imageSrc}
-										alt={callouts[1].imageAlt}
+										src={imageCategory[1].imageSrc}
+										alt={imageCategory[1].imageAlt}
 										className="h-full w-full object-cover object-center brightness-50 filter"
 									/>
-									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{callouts[1].name}</p>
+									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[1].name}</p>
 								</div>
 								<div className="relative h-80 overflow-hidden rounded-[1rem] bg-white group-hover:opacity-75">
 									<img
-										src={callouts[2].imageSrc}
-										alt={callouts[2].imageAlt}
+										src={imageCategory[2].imageSrc}
+										alt={imageCategory[2].imageAlt}
 										className="h-full w-full object-cover object-center brightness-50 filter"
 									/>
-									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{callouts[2].name}</p>
+									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[2].name}</p>
 								</div>
 							</div>
 						</div>

@@ -46,3 +46,7 @@ body {
 		padding: 14px 16px;
 	}
 }
+
+#search::placeholder {
+	color: white;
+}
