@@ -9,7 +9,7 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-.bg-image {
+main {
 	height: 100vh;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('../assets/wheight.jpg');
 	background-size: cover;
@@ -45,8 +45,4 @@ body {
 		min-width: 200px;
 		padding: 14px 16px;
 	}
-}
-
-#search::placeholder {
-	color: white;
 }

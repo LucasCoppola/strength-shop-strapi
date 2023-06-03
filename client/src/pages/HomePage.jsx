@@ -49,22 +49,19 @@ const HomePage = () => {
 
 	return (
 		<>
-			<div className="bg-image">
-				<Navbar />
-				<main className="py-16">
-					<div className="container mx-auto flex justify-center px-4 align-middle">
-						<div className="relative text-center">
-							<h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">Welcome to Strength Shop</h1>
-							<p className="mb-8 text-lg lg:text-xl">
-								Discover high-quality strength training equipment and accessories for your fitness journey.
-							</p>
-							<a href="#" className="shop-btn mx-auto mt-28">
-								Shop Now
-							</a>
-						</div>
+			<Navbar />
+
+			<main className="py-16">
+				<div className="container mx-auto flex justify-center px-4 align-middle">
+					<div className="relative text-center">
+						<h1 className="my-6 text-4xl font-bold md:text-5xl lg:text-6xl">Welcome to Strength Shop</h1>
+						<p className="mb-8 text-lg lg:text-xl">Discover high-quality strength training equipment and accessories for your fitness journey.</p>
+						<a href="#" className="shop-btn mx-auto mt-28">
+							Shop Now
+						</a>
 					</div>
-				</main>
-			</div>
+				</div>
+			</main>
 
 			{/* Featured */}
 			<section className="featured bg-gray-100 text-center">
