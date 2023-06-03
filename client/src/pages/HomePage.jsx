@@ -10,6 +10,8 @@ import { BiWorld, BiCheckShield } from 'react-icons/bi'
 
 const HomePage = () => {
 	const [products, setProducts] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
+	const [isError, setIsError] = useState(false)
 
 	const fetchProducts = () => {
 		const headers = {
@@ -18,13 +20,19 @@ const HomePage = () => {
 
 		fetch(import.meta.env.VITE_API_URL + '/items?populate=*', { headers })
 			.then((res) => res.json())
-			.then((data) => setProducts(data.data))
+			.then((data) => {
+				setProducts(data.data)
+				setIsLoading(false)
+			})
+			.catch(() => {
+				setIsLoading(false)
+				setIsError(true)
+			})
 	}
 
 	useEffect(() => {
 		fetchProducts()
 	}, [])
-	console.log(products)
 
 	const imageCategory = [
 		{
@@ -67,11 +75,17 @@ const HomePage = () => {
 			<section className="featured bg-gray-100 text-center">
 				<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<h2 className="mb-16 text-4xl font-bold text-gray-900">Trending Now</h2>
-					<div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-						{products.map((product) => (
-							<ProductItem key={product.id} product={product.attributes} />
-						))}
-					</div>
+					{isLoading ? (
+						<p>Loading...</p>
+					) : isError ? (
+						<p>Error fetching products.</p>
+					) : (
+						<div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+							{products.map((product) => (
+								<ProductItem key={product.id} product={product.attributes} />
+							))}
+						</div>
+					)}
 				</div>
 			</section>
 
