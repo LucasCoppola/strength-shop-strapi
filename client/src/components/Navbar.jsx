@@ -24,7 +24,7 @@ const Navbar = () => {
 	}, [prevScrollPos])
 
 	return (
-		<nav className={`sticky top-0 z-50 bg-white shadow-md transition-all duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
 			<div className="container mx-auto px-6 py-3 text-gray-700 md:flex md:justify-between">
 				<div className="flex items-center justify-between">
 					<a href="#">

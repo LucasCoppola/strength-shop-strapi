@@ -56,7 +56,7 @@ const HomePage = () => {
 					<div className="relative text-center">
 						<h1 className="my-6 text-4xl font-bold md:text-5xl lg:text-6xl">Welcome to Strength Shop</h1>
 						<p className="mb-8 text-lg lg:text-xl">Discover high-quality strength training equipment and accessories for your fitness journey.</p>
-						<a href="#" className="shop-btn mx-auto mt-28">
+						<a href="#" className="shop-btn mx-auto mt-28 bg-gray-100">
 							Shop Now
 						</a>
 					</div>
