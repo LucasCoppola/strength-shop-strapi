@@ -1,7 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+type Product = {
+	id: number
+	name: string
+	price: number
+	image: {
+		data: {
+			attributes: {
+				url: string
+			}
+		}
+	}
+}
 
-const ProductItem = ({ product }) => {
+type Props = {
+	product: Product
+}
+
+const ProductItem: React.FC<Props> = ({ product }) => {
 	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
 
 	return (
@@ -24,10 +38,6 @@ const ProductItem = ({ product }) => {
 			</div>
 		</div>
 	)
-}
-
-ProductItem.propTypes = {
-	product: PropTypes.object
 }
 
 export default ProductItem

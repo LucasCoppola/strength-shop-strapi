@@ -1,15 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import ProductItem from '../components/ProductItem'
-import PropTypes from 'prop-types'
 
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
 
-const HomePage = () => {
-	const [products, setProducts] = useState([])
+type Product = {
+	id: number
+	attributes: {
+		id: number
+		name: string
+		price: number
+		image: {
+			data: {
+				attributes: {
+					url: string
+				}
+			}
+		}
+	}
+}
+
+const HomePage: React.FC = (): JSX.Element => {
+	const [products, setProducts] = useState<Product[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
 
@@ -174,10 +189,6 @@ const HomePage = () => {
 			<Footer />
 		</>
 	)
-}
-
-HomePage.propTypes = {
-	products: PropTypes.array
 }
 
 export default HomePage
