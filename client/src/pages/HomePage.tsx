@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import ProductItem from '../components/ProductItem'
 
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
@@ -72,8 +70,6 @@ const HomePage: React.FC = (): JSX.Element => {
 
 	return (
 		<>
-			<Navbar />
-
 			<main className="py-16">
 				<div className="container mx-auto flex justify-center px-4 align-middle">
 					<div className="relative text-center">
@@ -185,8 +181,6 @@ const HomePage: React.FC = (): JSX.Element => {
 					</div>
 				</div>
 			</section>
-
-			<Footer />
 		</>
 	)
 }
