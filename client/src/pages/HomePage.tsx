@@ -75,7 +75,7 @@ const HomePage: React.FC = (): JSX.Element => {
 					<div className="relative text-center">
 						<h1 className="my-6 text-4xl font-bold md:text-5xl lg:text-6xl">Welcome to Strength Shop</h1>
 						<p className="mb-8 text-lg lg:text-xl">Discover high-quality strength training equipment and accessories for your fitness journey.</p>
-						<a href="#" className="shop-btn mx-auto mt-28 bg-gray-100">
+						<a href="/products" className="shop-btn mx-auto mt-28 bg-gray-100">
 							Shop Now
 						</a>
 					</div>
@@ -129,7 +129,7 @@ const HomePage: React.FC = (): JSX.Element => {
 									/>
 									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[1].name}</p>
 								</div>
-								<div className="relative h-80 overflow-hidden rounded-[1rem] bg-white group-hover:opacity-75">
+								<div className="relative h-80 overflow-hidden rounded-[1rem] group-hover:opacity-75">
 									<img
 										src={imageCategory[2].imageSrc}
 										alt={imageCategory[2].imageAlt}

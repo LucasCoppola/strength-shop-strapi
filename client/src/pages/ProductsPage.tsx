@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import { HiOutlineAdjustmentsHorizontal } from 'react-icons/hi2'
-import { RiArrowRightSLine, RiHome2Fill, RiHome2Line } from 'react-icons/ri'
+
 const products = [
 	{
 		id: 1,
@@ -29,6 +28,30 @@ const products = [
 	},
 	{
 		id: 4,
+		name: 'Earthen Bottle',
+		href: '#',
+		price: '$48',
+		imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+		imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.'
+	},
+	{
+		id: 5,
+		name: 'Nomad Tumbler',
+		href: '#',
+		price: '$35',
+		imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
+		imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.'
+	},
+	{
+		id: 6,
+		name: 'Focus Paper Refill',
+		href: '#',
+		price: '$89',
+		imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
+		imageAlt: 'Person using a pen to cross a task off a productivity paper card.'
+	},
+	{
+		id: 7,
 		name: 'Machined Mechanical Pencil',
 		href: '#',
 		price: '$35',
@@ -39,33 +62,8 @@ const products = [
 ]
 
 const ProductsPage = () => {
-	const [isHovered, setIsHovered] = useState(false)
-
 	return (
 		<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-6 lg:max-w-7xl lg:px-8">
-			<nav className="mb-8 flex justify-between text-lg" aria-label="Breadcrumb">
-				<ol className="inline-flex items-center space-x-1 md:space-x-3">
-					<li className="inline-flex items-center">
-						<a
-							href="#"
-							className="inline-flex items-center text-sm font-medium text-gray-700"
-							onMouseOver={() => setIsHovered(true)}
-							onMouseOut={() => setIsHovered(false)}
-						>
-							{isHovered ? <RiHome2Fill size={20} /> : <RiHome2Line size={20} />}
-						</a>
-					</li>
-					<li>
-						<div className="flex items-center">
-							<RiArrowRightSLine />
-							<a href="#" className="ml-1 text-sm font-medium text-gray-700 md:ml-2">
-								Products
-							</a>
-						</div>
-					</li>
-				</ol>
-			</nav>
-
 			<div className="mb-4 flex items-center justify-between">
 				<h2 className="text-2xl font-bold text-gray-700">All Products</h2>
 
@@ -94,6 +92,26 @@ const ProductsPage = () => {
 					</a>
 				))}
 			</div>
+
+			{/* <div className="drawer drawer-end">
+				<input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+				<div className="drawer-content">
+					<label htmlFor="my-drawer-4" className="drawer-button btn-primary btn">
+						Open drawer
+					</label>
+				</div>
+				<div className="drawer-side">
+					<label htmlFor="my-drawer-4" className="drawer-overlay"></label>
+					<ul className="menu h-full w-80 bg-gray-100 p-4 text-base-content">
+						<li>
+							<a>Sidebar Item 1</a>
+						</li>
+						<li>
+							<a>Sidebar Item 2</a>
+						</li>
+					</ul>
+				</div>
+			</div> */}
 		</div>
 	)
 }
