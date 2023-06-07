@@ -1,5 +1,6 @@
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import { HiOutlineAdjustmentsHorizontal } from 'react-icons/hi2'
+import { GrClose } from 'react-icons/gr'
 
 const products = [
 	{
@@ -61,12 +62,76 @@ const products = [
 	// More products...
 ]
 
-const ProductsPage = () => {
+const ProductsPage = ({ setIsNavbarVisible }: { setIsNavbarVisible: (isVisible: boolean) => void }) => {
 	return (
-		<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-6 lg:max-w-7xl lg:px-8">
+		<div className="relative">
+			<div className="drawer drawer-end">
+				<input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+				<div className="drawer-content">
+					<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-6 lg:max-w-7xl lg:px-8">
+						<div className="mb-4 flex items-center justify-between">
+							<h2 className="text-2xl font-bold text-gray-700">All Products</h2>
+							<label
+								htmlFor="my-drawer-4"
+								onClick={() => setIsNavbarVisible(false)}
+								className="drawer-button ml-auto flex items-center rounded-full bg-gray-300 px-5 py-3 font-bold"
+							>
+								<span className="mr-2">
+									<HiOutlineAdjustmentsHorizontal size={24} color="black" />
+								</span>
+								Filter &amp; Sort
+							</label>
+						</div>
+
+						<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
+							{products.map((product) => (
+								<a key={product.id} href={product.href} className="group">
+									<div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 relative w-full overflow-hidden rounded-lg bg-gray-200">
+										<img
+											src={product.imageSrc}
+											alt={product.imageAlt}
+											className="h-full w-full object-cover object-center group-hover:opacity-75"
+										/>
+										<button
+											title="Add to cart"
+											className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform items-center rounded-full bg-white px-6 py-2 opacity-0 transition-colors duration-300 group-hover:opacity-100"
+										>
+											<MdOutlineAddShoppingCart size={24} color="gray" />
+										</button>
+									</div>
+									<h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+									<p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+								</a>
+							))}
+						</div>
+					</div>
+				</div>
+				<div className="drawer-side">
+					<label htmlFor="my-drawer-4" className="drawer-overlay"></label>
+					<input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+					<div className="menu h-full w-80 bg-base-200 p-4 text-base-content">
+						<GrClose className="cursor-pointer text-2xl text-gray-500" />
+						<ul>
+							<li>
+								<a>Sidebar Item 1</a>
+							</li>
+							<li>
+								<a>Sidebar Item 2</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
+
+export default ProductsPage
+
+{
+	/* <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-6 lg:max-w-7xl lg:px-8">
 			<div className="mb-4 flex items-center justify-between">
 				<h2 className="text-2xl font-bold text-gray-700">All Products</h2>
-
 				<button className="ml-auto flex items-center rounded-full bg-gray-300 px-5 py-3 font-bold">
 					<span className="mr-2">
 						<HiOutlineAdjustmentsHorizontal size={24} color="black" />
@@ -74,7 +139,7 @@ const ProductsPage = () => {
 					Filter &amp; Sort
 				</button>
 			</div>
-
+	
 			<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 				{products.map((product) => (
 					<a key={product.id} href={product.href} className="group">
@@ -92,28 +157,5 @@ const ProductsPage = () => {
 					</a>
 				))}
 			</div>
-
-			{/* <div className="drawer drawer-end">
-				<input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-				<div className="drawer-content">
-					<label htmlFor="my-drawer-4" className="drawer-button btn-primary btn">
-						Open drawer
-					</label>
-				</div>
-				<div className="drawer-side">
-					<label htmlFor="my-drawer-4" className="drawer-overlay"></label>
-					<ul className="menu h-full w-80 bg-gray-100 p-4 text-base-content">
-						<li>
-							<a>Sidebar Item 1</a>
-						</li>
-						<li>
-							<a>Sidebar Item 2</a>
-						</li>
-					</ul>
-				</div>
-			</div> */}
-		</div>
-	)
+		</div> */
 }
-
-export default ProductsPage

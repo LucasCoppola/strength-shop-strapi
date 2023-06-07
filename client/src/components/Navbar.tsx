@@ -3,18 +3,17 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
 
-const Navbar: React.FC = () => {
+const Navbar = ({ isNavbarVisible, setIsNavbarVisible }: { isNavbarVisible: boolean; setIsNavbarVisible(isVisible: boolean): unknown }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [prevScrollPos, setPrevScrollPos] = useState(0)
-	const [visible, setVisible] = useState(true)
 
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollPos = window.pageYOffset
-			const visible = prevScrollPos > currentScrollPos
+			const isVisible = prevScrollPos > currentScrollPos
 
 			setPrevScrollPos(currentScrollPos)
-			setVisible(visible)
+			setIsNavbarVisible(isVisible)
 		}
 
 		window.addEventListener('scroll', handleScroll)
@@ -24,7 +23,7 @@ const Navbar: React.FC = () => {
 	}, [prevScrollPos])
 
 	return (
-		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${isNavbarVisible ? 'opacity-100' : 'opacity-0'}`}>
 			<div className="container mx-auto px-6 py-2 text-gray-700 md:flex md:justify-between">
 				<div className="flex items-center justify-between">
 					<a href="#">
