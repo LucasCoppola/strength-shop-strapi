@@ -3,17 +3,18 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
 
-const Navbar = ({ isNavbarVisible, setIsNavbarVisible }: { isNavbarVisible: boolean; setIsNavbarVisible(isVisible: boolean): unknown }) => {
+const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [prevScrollPos, setPrevScrollPos] = useState(0)
+	const [isVisible, setIsVisible] = useState(true)
 
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollPos = window.pageYOffset
-			const isVisible = prevScrollPos > currentScrollPos
+			const visible = prevScrollPos > currentScrollPos
 
 			setPrevScrollPos(currentScrollPos)
-			setIsNavbarVisible(isVisible)
+			setIsVisible(visible)
 		}
 
 		window.addEventListener('scroll', handleScroll)
@@ -23,8 +24,8 @@ const Navbar = ({ isNavbarVisible, setIsNavbarVisible }: { isNavbarVisible: bool
 	}, [prevScrollPos])
 
 	return (
-		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${isNavbarVisible ? 'opacity-100' : 'opacity-0'}`}>
-			<div className="container mx-auto px-6 py-2 text-gray-700 md:flex md:justify-between">
+		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+			<div className="container mx-auto px-6 py-3 text-gray-700 md:flex md:justify-between md:py-2">
 				<div className="flex items-center justify-between">
 					<a href="#">
 						<img className="h-6 w-auto sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
@@ -59,8 +60,8 @@ const Navbar = ({ isNavbarVisible, setIsNavbarVisible }: { isNavbarVisible: bool
 						</a>
 					</div>
 
-					<div className="relative mt-4 flex items-center md:mt-0">
-						<div className="relative mr-4">
+					<div className="relative mt-2 flex items-center md:mt-0">
+						<div className="relative mx-4">
 							<span className="absolute inset-y-0 left-0 flex items-center pl-3">
 								<HiOutlineMagnifyingGlass size={24} color="gray" />
 							</span>
