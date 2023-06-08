@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import ProductItem from '../components/ProductItem'
+import ProductCardBig from '../components/ProductCardBig'
 
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
@@ -93,7 +93,7 @@ const HomePage: React.FC = (): JSX.Element => {
 					) : (
 						<div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
 							{products.map((product) => (
-								<ProductItem key={product.id} product={product.attributes} />
+								<ProductCardBig key={product.id} product={product.attributes} />
 							))}
 						</div>
 					)}
