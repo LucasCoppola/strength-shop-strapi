@@ -104,7 +104,7 @@ const HomePage: React.FC = (): JSX.Element => {
 			<section className="bg-gray-100 text-center">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-						<h2 className="mb-16 text-4xl font-bold text-gray-900">Categories</h2>
+						<h2 className="mb-16 text-4xl font-bold text-gray-900">Collections</h2>
 
 						<div className="mt-6 space-y-12 lg:flex lg:gap-x-6 lg:space-y-0">
 							<div className="lg:w-1/3">

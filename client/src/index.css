@@ -9,6 +9,10 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
+.font-class {
+	font-family: 'Montserrat', sans-serif;
+}
+
 main {
 	height: 100vh;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('../assets/wheight.jpg');

@@ -60,7 +60,7 @@ const products = [
 ]
 const ProductCard = () => {
 	return (
-		<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
+		<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 			{products.map((product) => (
 				<a title={product.name} key={product.id} href={product.href} className="group">
 					<div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 relative w-full overflow-hidden bg-gray-200">
