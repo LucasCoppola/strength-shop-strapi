@@ -1,8 +1,46 @@
+import { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import Accordion from '../components/Accordion'
+import fetchProducts from '../api/fetchProducts'
+
 import { Select, Option } from '@material-tailwind/react'
 
+type Product = {
+	id: number
+	attributes: {
+		id: number
+		name: string
+		price: number
+		image: {
+			data: {
+				attributes: {
+					url: string
+				}
+			}
+		}
+	}
+}
+
 const ProductsPage = () => {
+	const [products, setProducts] = useState<Product[]>([])
+	const [isLoading, setIsLoading] = useState(true)
+	const [isError, setIsError] = useState(false)
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const data = await fetchProducts()
+				setProducts(data)
+				setIsLoading(false)
+			} catch (error) {
+				setIsLoading(false)
+				setIsError(true)
+			}
+		}
+
+		fetchData()
+	}, [])
+
 	return (
 		<div className="mx-auto max-w-7xl">
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
@@ -27,11 +65,22 @@ const ProductsPage = () => {
 					<div className="w-full space-y-3 pr-4 sm:mr-4 sm:w-1/3 sm:pr-0">
 						<Accordion header="Category" options={['Barbells', 'Plates', 'Rings', 'Accessories']} accordionId={1} />
 						<Accordion header="Collections" options={['Powerlifting', 'Calisthenics', 'Functional', 'Rigs & Racks']} accordionId={2} />
+						<Accordion header="Price" options={['Under $50', '$50 - $100', '$100 - $200', '$200 - $300', 'Over $300']} accordionId={3} />
 					</div>
 
 					{/* Products List */}
 					<div className="flex flex-grow flex-col">
-						<ProductCard />
+						{isLoading ? (
+							<p>Loading...</p>
+						) : isError ? (
+							<p>Error fetching products.</p>
+						) : (
+							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
+								{products.map((product) => (
+									<ProductCard product={product.attributes} key={product.id} />
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
