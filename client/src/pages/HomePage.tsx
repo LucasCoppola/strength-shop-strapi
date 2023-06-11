@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ProductCardBig from '../components/FeaturedCard'
+import FeaturedCard from '../components/FeaturedCard'
 import fetchProducts from '../api/fetchProducts'
 import CategoryImages from '../api/CategoryImages'
 
@@ -57,17 +57,17 @@ const HomePage = () => {
 			</main>
 
 			{/* Featured */}
-			<section className="featured bg-gray-100 text-center">
-				<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+			<section className="bg-gray-100 text-center">
+				<div className=" px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<h2 className="mb-16 text-4xl font-bold text-gray-900">Trending Now</h2>
 					{isLoading ? (
 						<p>Loading...</p>
 					) : isError ? (
 						<p>Error fetching products.</p>
 					) : (
-						<div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+						<div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-10 md:gap-x-12 xl:gap-x-20 ">
 							{products.map((product) => (
-								<ProductCardBig key={product.id} product={product.attributes} />
+								<FeaturedCard key={product.id} product={product.attributes} />
 							))}
 						</div>
 					)}
