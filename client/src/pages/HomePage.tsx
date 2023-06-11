@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-
-import ProductCardBig from '../components/ProductCardBig'
+import ProductCardBig from '../components/FeaturedCard'
+import fetchProducts from '../api/fetchProducts'
+import CategoryImages from '../api/CategoryImages'
 
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
@@ -21,52 +22,25 @@ type Product = {
 	}
 }
 
-const HomePage: React.FC = (): JSX.Element => {
+const HomePage = () => {
 	const [products, setProducts] = useState<Product[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
 
-	const fetchProducts = () => {
-		const headers = {
-			Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`
-		}
-
-		fetch(import.meta.env.VITE_API_URL + '/items?populate=*', { headers })
-			.then((res) => res.json())
-			.then((data) => {
-				setProducts(data.data)
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const data = await fetchProducts()
+				setProducts(data)
 				setIsLoading(false)
-			})
-			.catch(() => {
+			} catch (error) {
 				setIsLoading(false)
 				setIsError(true)
-			})
-	}
-
-	useEffect(() => {
-		fetchProducts()
-	}, [])
-
-	const imageCategory = [
-		{
-			name: 'Rigs & Racks',
-			imageSrc: '../../assets/rack.webp',
-			imageAlt: 'Single gym rack',
-			href: '#'
-		},
-		{
-			name: 'Powerlifting',
-			imageSrc: '../../assets/powerlifting.jpg',
-			imageAlt: 'Bar with plates',
-			href: '#'
-		},
-		{
-			name: 'Calisthenics',
-			imageSrc: '../../assets/calisthenics.jpg',
-			imageAlt: 'Pair of parallettes',
-			href: '#'
+			}
 		}
-	]
+
+		fetchData()
+	}, [])
 
 	return (
 		<>
@@ -111,31 +85,31 @@ const HomePage: React.FC = (): JSX.Element => {
 								<div className="group relative h-full">
 									<div className="relative overflow-hidden rounded-[1rem]" style={{ height: '100%' }}>
 										<img
-											src={imageCategory[0].imageSrc}
-											alt={imageCategory[0].imageAlt}
+											src={CategoryImages[0].imageSrc}
+											alt={CategoryImages[0].imageAlt}
 											className="h-full w-full object-cover object-center brightness-50 filter"
 											style={{ height: '100%' }}
 										/>
-										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[0].name}</p>
+										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[0].name}</p>
 									</div>
 								</div>
 							</div>
 							<div className="space-y-6 lg:w-2/3">
 								<div className="relative h-80 overflow-hidden rounded-[1rem] bg-white group-hover:opacity-75">
 									<img
-										src={imageCategory[1].imageSrc}
-										alt={imageCategory[1].imageAlt}
+										src={CategoryImages[1].imageSrc}
+										alt={CategoryImages[1].imageAlt}
 										className="h-full w-full object-cover object-center brightness-50 filter"
 									/>
-									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[1].name}</p>
+									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[1].name}</p>
 								</div>
 								<div className="relative h-80 overflow-hidden rounded-[1rem] group-hover:opacity-75">
 									<img
-										src={imageCategory[2].imageSrc}
-										alt={imageCategory[2].imageAlt}
+										src={CategoryImages[2].imageSrc}
+										alt={CategoryImages[2].imageAlt}
 										className="h-full w-full object-cover object-center brightness-50 filter"
 									/>
-									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{imageCategory[2].name}</p>
+									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[2].name}</p>
 								</div>
 							</div>
 						</div>

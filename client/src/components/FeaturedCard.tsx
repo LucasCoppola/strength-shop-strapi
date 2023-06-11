@@ -1,21 +1,6 @@
-type Product = {
-	id: number
-	name: string
-	price: number
-	image: {
-		data: {
-			attributes: {
-				url: string
-			}
-		}
-	}
-}
+import Product from '../types/productType'
 
-type Props = {
-	product: Product
-}
-
-const ProductItem: React.FC<Props> = ({ product }) => {
+const FeaturedCard = ({ product }: { product: Product }) => {
 	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
 
 	return (
@@ -34,10 +19,10 @@ const ProductItem: React.FC<Props> = ({ product }) => {
 						{/* </a> */}
 					</h3>
 				</div>
-				<p className="text-base font-semibold text-gray-900">$ {product.price}</p>
+				<p className="text-base font-semibold text-gray-900">${product.price}</p>
 			</div>
 		</div>
 	)
 }
 
-export default ProductItem
+export default FeaturedCard
