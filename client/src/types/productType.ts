@@ -1,7 +1,8 @@
-type Product = {
+type ProductType = {
 	id: number
 	name: string
 	price: number
+	type: string
 	image: {
 		data: {
 			attributes: {
@@ -11,4 +12,4 @@ type Product = {
 	}
 }
 
-export default Product
+export default ProductType

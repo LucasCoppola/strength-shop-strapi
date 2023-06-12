@@ -1,7 +1,7 @@
-import Product from '../types/productType'
+import ProductType from '../types/productType'
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react'
 
-const FeaturedCard = ({ product }: { product: Product }) => {
+const FeaturedCard = ({ product }: { product: ProductType }) => {
 	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
 
 	return (

@@ -12,6 +12,7 @@ type Product = {
 		id: number
 		name: string
 		price: number
+		type: string
 		image: {
 			data: {
 				attributes: {
@@ -41,6 +42,7 @@ const HomePage = () => {
 
 		fetchData()
 	}, [])
+	console.log(products)
 
 	return (
 		<>
@@ -66,9 +68,11 @@ const HomePage = () => {
 						<p>Error fetching products.</p>
 					) : (
 						<div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-10 md:gap-x-12 xl:gap-x-20 ">
-							{products.map((product) => (
-								<FeaturedCard key={product.id} product={product.attributes} />
-							))}
+							{products
+								.filter((product) => product.attributes.type === 'featured')
+								.map((product) => (
+									<FeaturedCard key={product.id} product={product.attributes} />
+								))}
 						</div>
 					)}
 				</div>

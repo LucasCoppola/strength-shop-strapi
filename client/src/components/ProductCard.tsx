@@ -1,41 +1,16 @@
-import Product from '../types/productType'
-import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react'
+import ProductData from '../types/productType'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product }: { product: ProductData }) => {
 	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
 
 	return (
-		// <Card className="w-auto ">
-		// 	<CardHeader shadow={false} floated={false} className="h-auto">
-		// 		<img src={image} alt={product.name} className="h-full w-full object-cover" />
-		// 	</CardHeader>
-		// 	<CardBody>
-		// 		<div className="mb-2 flex items-center justify-between">
-		// 			<Typography color="blue-gray" className="font-class text-sm">
-		// 				{product.name}
-		// 			</Typography>
-		// 			<Typography color="blue-gray" className="font-class text-sm font-bold">
-		// 				${product.price}
-		// 			</Typography>
-		// 		</div>
-		// 	</CardBody>
-		// 	<CardFooter className="pt-0">
-		// 		<Button
-		// 			ripple={false}
-		// 			fullWidth={true}
-		// 			className="font-class bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-		// 		>
-		// 			Add to Cart
-		// 		</Button>
-		// 	</CardFooter>
-		// </Card>
 		<a title={product.name} className="group rounded-lg border hover:shadow-md">
 			<div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 relative w-full overflow-hidden">
 				<img
 					src={image}
 					alt={product.name}
-					className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-50"
+					className="h-80 w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-50 md:h-48"
 				/>
 				<button
 					title="Add to cart"
