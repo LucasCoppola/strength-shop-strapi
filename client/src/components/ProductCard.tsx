@@ -10,7 +10,7 @@ const ProductCard = ({ product }: { product: ProductData }) => {
 				<img
 					src={image}
 					alt={product.name}
-					className="h-80 w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-50 md:h-48"
+					className="w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-50 md:h-52 lg:h-36 xl:h-48"
 				/>
 				<button
 					title="Add to cart"
@@ -19,8 +19,8 @@ const ProductCard = ({ product }: { product: ProductData }) => {
 					<MdOutlineAddShoppingCart size={24} color="white" />
 				</button>
 			</div>
-			<h3 className="mt-4 px-3 pb-1 text-sm text-gray-700">{product.name}</h3>
-			<p className="mt-1 px-3 pb-1 text-base font-medium text-gray-900">${product.price}</p>
+			<h3 className="mt-4 px-2 pb-1 text-sm text-gray-700">{product.name}</h3>
+			<p className="mt-1 px-2 pb-2 text-base font-medium text-gray-900">${product.price}</p>
 		</a>
 	)
 }
