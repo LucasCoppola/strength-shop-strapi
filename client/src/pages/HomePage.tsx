@@ -12,7 +12,9 @@ type Product = {
 		id: number
 		name: string
 		price: number
+		category: string
 		type: string
+		publishedAt: string
 		image: {
 			data: {
 				attributes: {
@@ -42,7 +44,6 @@ const HomePage = () => {
 
 		fetchData()
 	}, [])
-	console.log(products)
 
 	return (
 		<>

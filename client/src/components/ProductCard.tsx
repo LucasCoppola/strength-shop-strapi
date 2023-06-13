@@ -1,7 +1,7 @@
-import ProductData from '../types/productType'
+import ProductType from '../types/productType'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 
-const ProductCard = ({ product }: { product: ProductData }) => {
+const ProductCard = ({ product }: { product: ProductType }) => {
 	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
 
 	return (

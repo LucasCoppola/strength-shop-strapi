@@ -4,6 +4,7 @@ type ProductType = {
 	price: number
 	category: string
 	type: string
+	publishedAt: string
 	image: {
 		data: {
 			attributes: {

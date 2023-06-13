@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import Accordion from '../components/Accordion'
 import fetchProducts from '../api/fetchProducts'
+import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
 
 import { Select, Option } from '@material-tailwind/react'
 
@@ -11,7 +12,9 @@ type Product = {
 		id: number
 		name: string
 		price: number
+		category: string
 		type: string
+		publishedAt: string
 		image: {
 			data: {
 				attributes: {
@@ -24,6 +27,8 @@ type Product = {
 
 const ProductsPage = () => {
 	const [products, setProducts] = useState<Product[]>([])
+	const [sortedProducts, setSortedProducts] = useState<Product[]>([])
+	const [selectedOption, setSelectedOption] = useState<string | undefined>('')
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
 
@@ -42,6 +47,26 @@ const ProductsPage = () => {
 		fetchData()
 	}, [])
 
+	useEffect(() => {
+		switch (selectedOption) {
+			case 'Relevance':
+				setSortedProducts(products)
+				break
+			case 'Price: Low to High':
+				setSortedProducts(priceLowToHigh(products.slice()))
+				break
+			case 'Price: High to Low':
+				setSortedProducts(priceHighToLow(products.slice()))
+				break
+			case 'Newest':
+				setSortedProducts(sortNewest(products.slice()))
+				break
+			default:
+				setSortedProducts(products)
+				break
+		}
+	}, [selectedOption, products])
+
 	return (
 		<div className="mx-auto max-w-7xl bg-gray-50">
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
@@ -52,11 +77,19 @@ const ProductsPage = () => {
 
 					{/* Dropdown Menu */}
 					<div className="md:w-52">
-						<Select label="Sort by" className="font-class">
-							<Option className="font-class">Relevance</Option>
-							<Option className="font-class">Price: Low to High</Option>
-							<Option className="font-class">Price: High to Low</Option>
-							<Option className="font-class">Newest</Option>
+						<Select label="Sort by" className="font-class" value={selectedOption} onChange={(val: string | undefined) => setSelectedOption(val)}>
+							<Option className="font-class" value="Relevance">
+								Relevance
+							</Option>
+							<Option className="font-class" value="Price: Low to High">
+								Price: Low to High
+							</Option>
+							<Option className="font-class" value="Price: High to Low">
+								Price: High to Low
+							</Option>
+							<Option className="font-class" value="Newest">
+								Newest
+							</Option>
 						</Select>
 					</div>
 				</div>
@@ -81,7 +114,7 @@ const ProductsPage = () => {
 							<p>Error fetching products.</p>
 						) : (
 							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
-								{products.map((product) => (
+								{sortedProducts.map((product) => (
 									<ProductCard product={product.attributes} key={product.id} />
 								))}
 							</div>
