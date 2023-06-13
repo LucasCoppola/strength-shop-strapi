@@ -5,7 +5,7 @@ const ProductCard = ({ product }: { product: ProductData }) => {
 	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
 
 	return (
-		<a title={product.name} className="group rounded-lg border hover:shadow-md">
+		<a title={product.name} className="group rounded-lg border hover:shadow-lg">
 			<div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 relative w-full overflow-hidden">
 				<img
 					src={image}

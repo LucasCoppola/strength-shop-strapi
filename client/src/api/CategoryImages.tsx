@@ -1,6 +1,6 @@
 const imageCategory = [
 	{
-		name: 'Rigs & Racks',
+		name: 'Racks',
 		imageSrc: '../../assets/rack.webp',
 		imageAlt: 'Single gym rack',
 		href: '#'

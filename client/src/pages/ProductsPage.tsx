@@ -47,7 +47,7 @@ const ProductsPage = () => {
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
 				<div className="mb-4 flex items-center justify-between">
 					<h2 className="text-lg font-bold text-gray-700 md:text-2xl">
-						All Products <span className="block pl-1 text-sm font-thin sm:inline">7 products</span>
+						All Products <span className="block pl-1 text-sm font-thin sm:inline">{products.length} products</span>
 					</h2>
 
 					{/* Dropdown Menu */}
@@ -64,9 +64,13 @@ const ProductsPage = () => {
 				{/* Filters */}
 				<div className="flex flex-col sm:flex-row">
 					<div className="w-full space-y-3 pr-4 sm:mr-4 sm:w-1/3 sm:pr-0">
-						<Accordion header="Category" options={['Barbells', 'Plates', 'Rings', 'Accessories']} accordionId={1} />
-						<Accordion header="Collections" options={['Powerlifting', 'Calisthenics', 'Functional', 'Rigs & Racks']} accordionId={2} />
-						<Accordion header="Price" options={['Under $50', '$50 - $100', '$100 - $200', '$200 - $300', 'Over $300']} accordionId={3} />
+						<Accordion header="Category" options={['Barbells', 'Plates', 'Racks', 'Accessories']} accordionId={1} />
+						<Accordion header="Collections" options={['Powerlifting', 'Calisthenics', 'Functional']} accordionId={2} />
+						<Accordion
+							header="Price"
+							options={['Under $50', '$50 - $100', '$100 - $200', '$200 - $300', '$300 - $400', '$400 - $500', 'Over $500']}
+							accordionId={3}
+						/>
 					</div>
 
 					{/* Products List */}

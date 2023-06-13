@@ -38,6 +38,16 @@
         "normal",
         "featured"
       ]
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "plates",
+        "bars",
+        "bench",
+        "racks",
+        "accesories"
+      ]
     }
   }
 }
