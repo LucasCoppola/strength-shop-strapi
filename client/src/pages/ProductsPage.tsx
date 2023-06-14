@@ -4,13 +4,20 @@ import Accordion from '../components/Accordion'
 import fetchProducts from '../api/fetchProducts'
 import ProductType from '../types/productType'
 import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
+import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
 
 import { Select, Option } from '@material-tailwind/react'
 
 const ProductsPage = () => {
 	const [products, setProducts] = useState<ProductType[]>([])
 	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])
-	const [selectedOption, setSelectedOption] = useState<string | undefined>('')
+	const [selectedSort, setSelectedSort] = useState<string | undefined>('')
+
+	// Filters
+	const [categoryFilters, setCategoryFilters] = useState<(string | null)[]>([])
+	const [collectionFilters, setCollectionFilters] = useState<(string | null)[]>([])
+	const [priceFilters, setPriceFilters] = useState<(string | null)[]>([])
+
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
 
@@ -30,27 +37,48 @@ const ProductsPage = () => {
 	}, [])
 
 	useEffect(() => {
-		switch (selectedOption) {
+		let filteredProducts = [...products]
+
+		// Apply category filter
+		if (categoryFilters.length > 0) {
+			filteredProducts = filterCategory(filteredProducts, categoryFilters)
+		}
+
+		// Apply collection filter
+		if (collectionFilters.length > 0) {
+			filteredProducts = filterCollection(filteredProducts, collectionFilters)
+		}
+
+		// Apply price filter
+		if (priceFilters.length > 0) {
+			filteredProducts = filterPrice(filteredProducts, priceFilters)
+		}
+
+		// Apply sorting
+		switch (selectedSort) {
 			case 'Relevance':
-				setSortedProducts(products)
+				// No sorting needed
 				break
 			case 'Price: Low to High':
-				setSortedProducts(priceLowToHigh(products))
+				filteredProducts = priceLowToHigh(filteredProducts)
 				break
 			case 'Price: High to Low':
-				setSortedProducts(priceHighToLow(products))
+				filteredProducts = priceHighToLow(filteredProducts)
 				break
 			case 'Newest':
-				setSortedProducts(sortNewest(products))
+				filteredProducts = sortNewest(filteredProducts)
 				break
 			default:
-				setSortedProducts(products)
+				// No sorting needed
 				break
 		}
-	}, [selectedOption, products])
 
+		setSortedProducts(filteredProducts)
+	}, [selectedSort, categoryFilters, collectionFilters, priceFilters, products])
+
+	console.log(products)
 	return (
-		<div className="mx-auto max-w-7xl bg-gray-50">
+		<div className="mx-auto max-w-7xl bg-white">
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
 				<div className="mb-4 flex items-center justify-between">
 					<h2 className="text-lg font-bold text-gray-700 md:text-2xl">
@@ -59,7 +87,7 @@ const ProductsPage = () => {
 
 					{/* Dropdown Menu */}
 					<div className="md:w-52">
-						<Select label="Sort by" className="font-class" value={selectedOption} onChange={(val: string | undefined) => setSelectedOption(val)}>
+						<Select label="Sort by" className="font-class" value={selectedSort} onChange={(val: string | undefined) => setSelectedSort(val)}>
 							<Option className="font-class" value="Relevance">
 								Relevance
 							</Option>
@@ -79,11 +107,25 @@ const ProductsPage = () => {
 				{/* Filters */}
 				<div className="flex flex-col sm:flex-row">
 					<div className="w-full space-y-3 pr-4 sm:mr-4 sm:w-1/3 sm:pr-0">
-						<Accordion header="Category" options={['Barbells', 'Plates', 'Racks', 'Accessories']} accordionId={1} />
-						<Accordion header="Collections" options={['Powerlifting', 'Calisthenics', 'Functional']} accordionId={2} />
+						<Accordion
+							header="Category"
+							options={['Barbells', 'Plates', 'Racks', 'Accessories']}
+							selectedFilters={categoryFilters}
+							setSelectedFilters={setCategoryFilters}
+							accordionId={1}
+						/>
+						<Accordion
+							header="Collections"
+							options={['Powerlifting', 'Calisthenics', 'Functional', 'Racks']}
+							selectedFilters={collectionFilters}
+							setSelectedFilters={setCollectionFilters}
+							accordionId={2}
+						/>
 						<Accordion
 							header="Price"
 							options={['Under $50', '$50 - $100', '$100 - $200', '$200 - $300', '$300 - $400', '$400 - $500', 'Over $500']}
+							selectedFilters={priceFilters}
+							setSelectedFilters={setPriceFilters}
 							accordionId={3}
 						/>
 					</div>

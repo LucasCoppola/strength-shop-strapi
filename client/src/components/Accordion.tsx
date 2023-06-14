@@ -16,12 +16,23 @@ const Icon = ({ id, open }: { id: number; open: number }) => {
 	)
 }
 
-const AccordionComponent = ({ header, options, accordionId }: { header: string; options: string[]; accordionId: number }) => {
+const AccordionComponent = ({
+	header,
+	options,
+	selectedFilters,
+	setSelectedFilters,
+	accordionId
+}: {
+	header: string
+	options: string[]
+	selectedFilters: (string | null)[]
+	setSelectedFilters: React.Dispatch<React.SetStateAction<(string | null)[]>>
+	accordionId: number
+}) => {
 	const [open, setOpen] = useState(0)
-	const [selectedOptions, setSelectedOptions] = useState<(string | null)[]>(Array(options.length).fill(null))
 
 	const handleOptionChange = (i: number) => {
-		setSelectedOptions((prevOptions) => {
+		setSelectedFilters((prevOptions: (string | null)[]) => {
 			const newOptions = [...prevOptions]
 			newOptions[i] = prevOptions[i] === options[i] ? null : options[i]
 			return newOptions
@@ -37,8 +48,8 @@ const AccordionComponent = ({ header, options, accordionId }: { header: string; 
 				>
 					<div className="flex items-center">
 						{header}{' '}
-						{selectedOptions.some(Boolean) && (
-							<span className="pl-2 text-sm text-blue-300" onClick={() => setSelectedOptions(Array(options.length).fill(null))}>
+						{selectedFilters.some(Boolean) && (
+							<span className="pl-2 text-sm text-blue-300" onClick={() => setSelectedFilters([])}>
 								Clear
 							</span>
 						)}
@@ -58,7 +69,7 @@ const AccordionComponent = ({ header, options, accordionId }: { header: string; 
 												className: 'p-0'
 											}}
 											onChange={() => handleOptionChange(i)}
-											checked={selectedOptions[i] === options[i]}
+											checked={selectedFilters[i] === options[i]}
 										/>
 									</ListItemPrefix>
 									<Typography color="blue-gray" className="font-class">

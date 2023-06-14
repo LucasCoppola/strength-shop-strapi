@@ -42,20 +42,20 @@
     "category": {
       "type": "enumeration",
       "enum": [
-        "plates",
-        "barbells",
-        "bench",
-        "racks",
-        "accessories"
+        "Plates",
+        "Barbells",
+        "Bench",
+        "Racks",
+        "Accessories"
       ]
     },
     "collection": {
       "type": "enumeration",
       "enum": [
-        "powerlifting",
-        "calisthenics",
-        "functional",
-        "racks"
+        "Powerlifting",
+        "Calisthenics",
+        "Functional",
+        "Racks"
       ]
     }
   }
