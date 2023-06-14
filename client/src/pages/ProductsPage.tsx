@@ -2,32 +2,14 @@ import { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import Accordion from '../components/Accordion'
 import fetchProducts from '../api/fetchProducts'
+import ProductType from '../types/productType'
 import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
 
 import { Select, Option } from '@material-tailwind/react'
 
-type Product = {
-	id: number
-	attributes: {
-		id: number
-		name: string
-		price: number
-		category: string
-		type: string
-		publishedAt: string
-		image: {
-			data: {
-				attributes: {
-					url: string
-				}
-			}
-		}
-	}
-}
-
 const ProductsPage = () => {
-	const [products, setProducts] = useState<Product[]>([])
-	const [sortedProducts, setSortedProducts] = useState<Product[]>([])
+	const [products, setProducts] = useState<ProductType[]>([])
+	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])
 	const [selectedOption, setSelectedOption] = useState<string | undefined>('')
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
@@ -53,13 +35,13 @@ const ProductsPage = () => {
 				setSortedProducts(products)
 				break
 			case 'Price: Low to High':
-				setSortedProducts(priceLowToHigh(products.slice()))
+				setSortedProducts(priceLowToHigh(products))
 				break
 			case 'Price: High to Low':
-				setSortedProducts(priceHighToLow(products.slice()))
+				setSortedProducts(priceHighToLow(products))
 				break
 			case 'Newest':
-				setSortedProducts(sortNewest(products.slice()))
+				setSortedProducts(sortNewest(products))
 				break
 			default:
 				setSortedProducts(products)
