@@ -1,21 +1,21 @@
-import attributesType from '../types/attributesType'
+import ProductType from '../types/productType'
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react'
 
-const FeaturedCard = ({ product }: { product: attributesType }) => {
-	const image = import.meta.env.VITE_IMAGE + product.image.data.attributes.url
+const FeaturedCard = ({ product }: { product: ProductType }) => {
+	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 
 	return (
 		<Card className="w-72">
 			<CardHeader shadow={false} floated={false} className="h-60">
-				<img src={image} alt={product.name} className="h-full w-full object-cover" />
+				<img src={image} alt={product.attributes.name} className="h-full w-full object-cover" />
 			</CardHeader>
 			<CardBody>
 				<div className="mb-2 flex items-center justify-between">
 					<Typography color="blue-gray" className="font-class text-sm">
-						{product.name}
+						{product.attributes.name}
 					</Typography>
 					<Typography color="blue-gray" className="font-class text-sm font-bold">
-						${product.price}
+						${product.attributes.price}
 					</Typography>
 				</div>
 			</CardBody>

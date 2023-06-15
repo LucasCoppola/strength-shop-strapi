@@ -4,6 +4,7 @@ type ProductType = {
 		id: number
 		name: string
 		price: number
+		description: string
 		category: string
 		collection: string
 		type: string
