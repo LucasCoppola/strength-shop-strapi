@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import Accordion from '../components/Accordion'
-import fetchProducts from '../api/fetchProducts'
+
 import ProductType from '../types/productType'
 import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
 import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
 
 import { Select, Option } from '@material-tailwind/react'
 
-const ProductsPage = () => {
-	const [products, setProducts] = useState<ProductType[]>([])
+const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])
 	const [selectedSort, setSelectedSort] = useState<string | undefined>('')
 
@@ -17,24 +16,6 @@ const ProductsPage = () => {
 	const [categoryFilters, setCategoryFilters] = useState<(string | null)[]>([])
 	const [collectionFilters, setCollectionFilters] = useState<(string | null)[]>([])
 	const [priceFilters, setPriceFilters] = useState<(string | null)[]>([])
-
-	const [isLoading, setIsLoading] = useState(true)
-	const [isError, setIsError] = useState(false)
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const data = await fetchProducts()
-				setProducts(data)
-				setIsLoading(false)
-			} catch (error) {
-				setIsLoading(false)
-				setIsError(true)
-			}
-		}
-
-		fetchData()
-	}, [])
 
 	useEffect(() => {
 		let filteredProducts = [...products]
@@ -81,7 +62,7 @@ const ProductsPage = () => {
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
 				<div className="mb-4 flex items-center justify-between">
 					<h2 className="text-lg font-bold text-gray-700 md:text-2xl">
-						All Products <span className="block pl-1 text-sm font-thin sm:inline">{products.length} products</span>
+						All Products <span className="block pl-1 text-sm font-thin sm:inline">{sortedProducts.length} products</span>
 					</h2>
 
 					{/* Dropdown Menu */}
@@ -138,7 +119,7 @@ const ProductsPage = () => {
 						) : (
 							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 								{sortedProducts.map((product) => (
-									<ProductCard product={product.attributes} key={product.id} />
+									<ProductCard product={product} key={product.id} />
 								))}
 							</div>
 						)}

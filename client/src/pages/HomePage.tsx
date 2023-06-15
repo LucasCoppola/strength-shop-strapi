@@ -1,50 +1,11 @@
-import { useEffect, useState } from 'react'
 import FeaturedCard from '../components/FeaturedCard'
-import fetchProducts from '../api/fetchProducts'
 import CategoryImages from '../api/CategoryImages'
+import ProductType from '../types/productType'
 
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
 
-type Product = {
-	id: number
-	attributes: {
-		id: number
-		name: string
-		price: number
-		category: string
-		type: string
-		publishedAt: string
-		image: {
-			data: {
-				attributes: {
-					url: string
-				}
-			}
-		}
-	}
-}
-
-const HomePage = () => {
-	const [products, setProducts] = useState<Product[]>([])
-	const [isLoading, setIsLoading] = useState(true)
-	const [isError, setIsError] = useState(false)
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const data = await fetchProducts()
-				setProducts(data)
-				setIsLoading(false)
-			} catch (error) {
-				setIsLoading(false)
-				setIsError(true)
-			}
-		}
-
-		fetchData()
-	}, [])
-
+const HomePage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	return (
 		<>
 			<main className="py-16">
