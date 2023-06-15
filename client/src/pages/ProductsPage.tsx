@@ -76,7 +76,6 @@ const ProductsPage = () => {
 		setSortedProducts(filteredProducts)
 	}, [selectedSort, categoryFilters, collectionFilters, priceFilters, products])
 
-	console.log(products)
 	return (
 		<div className="mx-auto max-w-7xl bg-white">
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
@@ -106,7 +105,7 @@ const ProductsPage = () => {
 
 				{/* Filters */}
 				<div className="flex flex-col sm:flex-row">
-					<div className="w-full space-y-3 pr-4 sm:mr-4 sm:w-1/3 sm:pr-0">
+					<div className="w-full space-y-3 pr-4 sm:mr-4 sm:w-60 sm:pr-0">
 						<Accordion
 							header="Category"
 							options={['Barbells', 'Plates', 'Racks', 'Accessories']}

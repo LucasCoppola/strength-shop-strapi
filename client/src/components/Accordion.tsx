@@ -32,10 +32,11 @@ const AccordionComponent = ({
 	const [open, setOpen] = useState(0)
 
 	const handleOptionChange = (i: number) => {
-		setSelectedFilters((prevOptions: (string | null)[]) => {
-			const newOptions = [...prevOptions]
-			newOptions[i] = prevOptions[i] === options[i] ? null : options[i]
-			return newOptions
+		setSelectedFilters((prevFilters) => {
+			const newFilters = [...prevFilters]
+			newFilters[i] = prevFilters[i] === options[i] ? null : options[i]
+
+			return newFilters
 		})
 	}
 

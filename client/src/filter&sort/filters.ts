@@ -1,18 +1,30 @@
 import ProductType from '../types/productType'
 
 export const filterCategory = (products: ProductType[], categoryFilters: (string | null)[]) => {
+	if (categoryFilters.every((filter) => filter === null)) {
+		return products
+	}
+
 	return products.filter((product) => {
 		return categoryFilters.some((filter) => filter?.toLowerCase() === product.attributes.category)
 	})
 }
 
 export const filterCollection = (products: ProductType[], collectionFilters: (string | null)[]) => {
+	if (collectionFilters.every((filter) => filter === null)) {
+		return products
+	}
+
 	return products.filter((product) => {
 		return collectionFilters.some((filter) => filter?.toLowerCase() === product.attributes.collection)
 	})
 }
 
 export const filterPrice = (products: ProductType[], priceFilters: (string | null)[]) => {
+	if (priceFilters.every((filter) => filter === null)) {
+		return products
+	}
+
 	const getPriceRange = (price: number) => {
 		if (price < 50) {
 			return 'Under $50'
