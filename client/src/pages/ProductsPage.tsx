@@ -113,9 +113,9 @@ const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[
 					{/* Products List */}
 					<div className="flex flex-grow flex-col">
 						{isLoading ? (
-							<p>Loading...</p>
+							<p className="flex justify-center text-xl font-semibold text-gray-800">Loading...</p>
 						) : isError ? (
-							<p>Error fetching products.</p>
+							<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching products</p>
 						) : (
 							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 								{sortedProducts.map((product) => (

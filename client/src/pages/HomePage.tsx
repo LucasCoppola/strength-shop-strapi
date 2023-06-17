@@ -25,15 +25,15 @@ const HomePage = ({ products, isLoading, isError }: { products: ProductType[]; i
 				<div className=" px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<h2 className="mb-16 text-4xl font-bold text-gray-900">Trending Now</h2>
 					{isLoading ? (
-						<p>Loading...</p>
+						<p className="flex justify-center text-xl font-semibold text-gray-800">Loading...</p>
 					) : isError ? (
-						<p>Error fetching products.</p>
+						<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching products</p>
 					) : (
 						<div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-10 md:gap-x-12 xl:gap-x-20 ">
 							{products
 								.filter((product) => product.attributes.type === 'featured')
 								.map((product) => (
-									<FeaturedCard key={product.id} product={product.attributes} />
+									<FeaturedCard key={product.id} product={product} />
 								))}
 						</div>
 					)}
