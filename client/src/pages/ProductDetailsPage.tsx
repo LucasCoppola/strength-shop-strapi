@@ -1,25 +1,41 @@
 import { useState } from 'react'
 import ProductType from '../types/productType'
 import { useParams } from 'react-router-dom'
+import CategoryCarousel from '../components/CategoryCarousel'
+import CollectionCarousel from '../components/CollectionCarousel'
 
 const ProductDetailsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	const { id } = useParams()
 	const product = products.find((product) => product.id === Number(id))
 	const image = import.meta.env.VITE_IMAGE + product?.attributes.image.data.attributes.url
 
-	const [currentSetIndex, setCurrentSetIndex] = useState(0)
+	const [categorySetIndex, setCategorySetIndex] = useState(0)
+	const [collectionSetIndex, setCollectionSetIndex] = useState(0)
+
 	const productsPerSet = 3
 
-	const handleNextSet = () => {
-		setCurrentSetIndex((prevIndex) => (prevIndex === Math.floor(products.length / productsPerSet) ? 0 : prevIndex + 1))
+	const currentProductCategory = product?.attributes.category
+	const filteredProductsByCategory = products.filter((product) => product.attributes.category === currentProductCategory && product.id !== Number(id))
+	const totalCategorySets = Math.ceil(filteredProductsByCategory.length / productsPerSet)
+
+	const currentProductCollection = product?.attributes.collection
+	const filteredProductsByCollection = products.filter((product) => product.attributes.collection === currentProductCollection && product.id !== Number(id))
+	const totalCollectionSets = Math.ceil(filteredProductsByCollection.length / productsPerSet)
+
+	const handlePrevCategoryClick = () => {
+		setCategorySetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(filteredProductsByCategory.length / productsPerSet) : prevIndex - 1))
 	}
 
-	const handlePrevSet = () => {
-		setCurrentSetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(products.length / productsPerSet) : prevIndex - 1))
+	const handleNextCategoryClick = () => {
+		setCategorySetIndex((prevIndex) => (prevIndex === totalCategorySets - 1 ? 0 : prevIndex + 1))
 	}
 
-	const productImg = (product: ProductType) => {
-		return import.meta.env.VITE_IMAGE + product?.attributes.image.data.attributes.url
+	const handlePrevCollectionClick = () => {
+		setCollectionSetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(filteredProductsByCollection.length / productsPerSet) : prevIndex - 1))
+	}
+
+	const handleNextCollectionClick = () => {
+		setCollectionSetIndex((prevIndex) => (prevIndex === totalCollectionSets - 1 ? 0 : prevIndex + 1))
 	}
 
 	return (
@@ -46,30 +62,39 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 							<li>Bold color coding for easy weight identification</li>
 							<li>Stainless steel inserts for secure fit</li>
 						</ul>
-						<button className="mt-8 rounded-full bg-blue-500 px-6 py-3 font-semibold text-white hover:bg-blue-600">Add to Cart</button>
+						<button className="mt-8 rounded-full bg-blue-500 px-6 py-3 font-semibold text-white">Add to Cart</button>
 					</div>
 				</div>
 			)}
 
+			{/* By Category */}
 			<div className="mt-12">
-				<h3 className="mb-4 text-2xl font-semibold">Similar Items</h3>
-				<div className="flex items-center">
-					<button className="rounded-full bg-gray-200 p-2 hover:bg-gray-300" onClick={handlePrevSet}>
-						Prev
-					</button>
-					<div className="flex flex-grow space-x-4 overflow-x-auto">
-						{products.slice(currentSetIndex * productsPerSet, currentSetIndex * productsPerSet + productsPerSet).map((product) => (
-							<div key={product.id} className="rounded-lg border border-gray-300 p-4">
-								<img src={productImg(product)} alt={product?.attributes.name} className="w-full" />
-								<h4 className="mt-2 text-lg font-semibold">{product?.attributes.name}</h4>
-								<p className="text-gray-600">${product?.attributes.price}</p>
-							</div>
-						))}
-					</div>
-					<button className="rounded-full bg-gray-200 p-2 hover:bg-gray-300" onClick={handleNextSet}>
-						Next
-					</button>
-				</div>
+				<h3 className="mb-4 text-2xl font-semibold">
+					Similar {product?.attributes.category.charAt(0).toUpperCase().concat(product?.attributes.category.slice(1))}
+				</h3>
+				<CategoryCarousel
+					products={filteredProductsByCategory}
+					productsPerSet={productsPerSet}
+					currentSetIndex={categorySetIndex}
+					totalSets={totalCategorySets}
+					handlePrevClick={handlePrevCategoryClick}
+					handleNextClick={handleNextCategoryClick}
+				/>
+			</div>
+
+			{/* By Collection */}
+			<div className="mt-12">
+				<h3 className="mb-4 text-2xl font-semibold">
+					More of {product?.attributes.collection.charAt(0).toUpperCase().concat(product?.attributes.collection.slice(1))}
+				</h3>
+				<CollectionCarousel
+					products={filteredProductsByCollection}
+					productsPerSet={productsPerSet}
+					currentSetIndex={collectionSetIndex}
+					totalSets={totalCollectionSets}
+					handlePrevClick={handlePrevCollectionClick}
+					handleNextClick={handleNextCollectionClick}
+				/>
 			</div>
 		</div>
 	)
