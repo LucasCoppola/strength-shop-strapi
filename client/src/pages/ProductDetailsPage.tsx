@@ -22,22 +22,6 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 	const filteredProductsByCollection = products.filter((product) => product.attributes.collection === currentProductCollection && product.id !== Number(id))
 	const totalCollectionSets = Math.ceil(filteredProductsByCollection.length / productsPerSet)
 
-	const handlePrevCategoryClick = () => {
-		setCategorySetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(filteredProductsByCategory.length / productsPerSet) : prevIndex - 1))
-	}
-
-	const handleNextCategoryClick = () => {
-		setCategorySetIndex((prevIndex) => (prevIndex === totalCategorySets - 1 ? 0 : prevIndex + 1))
-	}
-
-	const handlePrevCollectionClick = () => {
-		setCollectionSetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(filteredProductsByCollection.length / productsPerSet) : prevIndex - 1))
-	}
-
-	const handleNextCollectionClick = () => {
-		setCollectionSetIndex((prevIndex) => (prevIndex === totalCollectionSets - 1 ? 0 : prevIndex + 1))
-	}
-
 	return (
 		<div className="container mx-auto px-4 py-8">
 			{isLoading ? (
@@ -77,8 +61,10 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 					productsPerSet={productsPerSet}
 					currentSetIndex={categorySetIndex}
 					totalSets={totalCategorySets}
-					handlePrevClick={handlePrevCategoryClick}
-					handleNextClick={handleNextCategoryClick}
+					handlePrevClick={() =>
+						setCategorySetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(filteredProductsByCategory.length / productsPerSet) : prevIndex - 1))
+					}
+					handleNextClick={() => setCategorySetIndex((prevIndex) => (prevIndex === totalCategorySets - 1 ? 0 : prevIndex + 1))}
 				/>
 			</div>
 
@@ -92,8 +78,12 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 					productsPerSet={productsPerSet}
 					currentSetIndex={collectionSetIndex}
 					totalSets={totalCollectionSets}
-					handlePrevClick={handlePrevCollectionClick}
-					handleNextClick={handleNextCollectionClick}
+					handlePrevClick={() =>
+						setCollectionSetIndex((prevIndex) =>
+							prevIndex === 0 ? Math.floor(filteredProductsByCollection.length / productsPerSet) : prevIndex - 1
+						)
+					}
+					handleNextClick={() => setCollectionSetIndex((prevIndex) => (prevIndex === totalCollectionSets - 1 ? 0 : prevIndex + 1))}
 				/>
 			</div>
 		</div>
