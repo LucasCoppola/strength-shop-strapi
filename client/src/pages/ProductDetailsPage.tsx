@@ -1,6 +1,8 @@
-import { useState } from 'react'
-import ProductType from '../types/productType'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Button } from '@material-tailwind/react'
+import { MdOutlineAddShoppingCart } from 'react-icons/md'
+import ProductType from '../types/productType'
 import CategoryCarousel from '../components/CategoryCarousel'
 import CollectionCarousel from '../components/CollectionCarousel'
 
@@ -9,21 +11,36 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 	const product = products.find((product) => product.id === Number(id))
 	const image = import.meta.env.VITE_IMAGE + product?.attributes.image.data.attributes.url
 
-	const [categorySetIndex, setCategorySetIndex] = useState(0)
-	const [collectionSetIndex, setCollectionSetIndex] = useState(0)
-
-	const productsPerSet = 3
-
+	const [productsPerSet, setProductsPerSet] = useState<number>(3)
 	const currentProductCategory = product?.attributes.category
 	const filteredProductsByCategory = products.filter((product) => product.attributes.category === currentProductCategory && product.id !== Number(id))
-	const totalCategorySets = Math.ceil(filteredProductsByCategory.length / productsPerSet)
 
 	const currentProductCollection = product?.attributes.collection
 	const filteredProductsByCollection = products.filter((product) => product.attributes.collection === currentProductCollection && product.id !== Number(id))
-	const totalCollectionSets = Math.ceil(filteredProductsByCollection.length / productsPerSet)
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth >= 1024) {
+				setProductsPerSet(3)
+			} else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+				setProductsPerSet(2)
+			} else {
+				setProductsPerSet(1)
+			}
+		}
+
+		// Add event listener to window resize
+		window.addEventListener('resize', handleResize)
+
+		// Call the handleResize function initially
+		handleResize()
+
+		// Clean up the event listener on component unmount
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="container mx-auto bg-gray-50 px-4 py-8">
 			{isLoading ? (
 				<p className="flex justify-center text-xl font-semibold text-gray-800">Loading...</p>
 			) : isError ? (
@@ -34,57 +51,40 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 						<img src={image} alt={product?.attributes.name} className="w-2/3" />
 					</div>
 					<div>
-						<h2 className="mb-4 text-3xl font-semibold">{product?.attributes.name}</h2>
-						<p className="mb-4 text-lg text-gray-600">${product?.attributes.price}</p>
-						<p className="mb-6 text-gray-700">{product?.attributes.description}</p>
+						<h2 className="mb-4 text-3xl font-bold text-gray-800">{product?.attributes.name}</h2>
+						<p className="mb-4 text-2xl  text-gray-900">${product?.attributes.price}</p>
+						<p className="mb-6 text-sm text-gray-700">{product?.attributes.description}</p>
 						<h3 className="mb-2 text-lg font-semibold">Features:</h3>
 						<ul className="list-inside list-disc">
 							<li>Built for competition</li>
 							<li>Precision and durability</li>
 							<li>Solid rubber construction</li>
-							<li>Impact absorption and noise reduction</li>
-							<li>Bold color coding for easy weight identification</li>
-							<li>Stainless steel inserts for secure fit</li>
 						</ul>
-						<button className="mt-8 rounded-full bg-blue-500 px-6 py-3 font-semibold text-white">Add to Cart</button>
+						<Button
+							color="gray"
+							className="mt-6 inline-flex items-center rounded-full border-none bg-gray-900 px-8 py-2 text-base font-semibold hover:shadow-xl"
+						>
+							<MdOutlineAddShoppingCart size={18} className="mr-2" />
+							Add to Cart
+						</Button>
 					</div>
 				</div>
 			)}
 
 			{/* By Category */}
 			<div className="mt-12">
-				<h3 className="mb-4 text-2xl font-semibold">
+				<h3 className="mb-6 text-3xl font-bold text-gray-800">
 					Similar {product?.attributes.category.charAt(0).toUpperCase().concat(product?.attributes.category.slice(1))}
 				</h3>
-				<CategoryCarousel
-					products={filteredProductsByCategory}
-					productsPerSet={productsPerSet}
-					currentSetIndex={categorySetIndex}
-					totalSets={totalCategorySets}
-					handlePrevClick={() =>
-						setCategorySetIndex((prevIndex) => (prevIndex === 0 ? Math.floor(filteredProductsByCategory.length / productsPerSet) : prevIndex - 1))
-					}
-					handleNextClick={() => setCategorySetIndex((prevIndex) => (prevIndex === totalCategorySets - 1 ? 0 : prevIndex + 1))}
-				/>
+				<CategoryCarousel products={filteredProductsByCategory} productsPerSet={productsPerSet} />
 			</div>
 
 			{/* By Collection */}
 			<div className="mt-12">
-				<h3 className="mb-4 text-2xl font-semibold">
+				<h3 className="mb-6 text-3xl font-bold text-gray-800">
 					More of {product?.attributes.collection.charAt(0).toUpperCase().concat(product?.attributes.collection.slice(1))}
 				</h3>
-				<CollectionCarousel
-					products={filteredProductsByCollection}
-					productsPerSet={productsPerSet}
-					currentSetIndex={collectionSetIndex}
-					totalSets={totalCollectionSets}
-					handlePrevClick={() =>
-						setCollectionSetIndex((prevIndex) =>
-							prevIndex === 0 ? Math.floor(filteredProductsByCollection.length / productsPerSet) : prevIndex - 1
-						)
-					}
-					handleNextClick={() => setCollectionSetIndex((prevIndex) => (prevIndex === totalCollectionSets - 1 ? 0 : prevIndex + 1))}
-				/>
+				<CollectionCarousel products={filteredProductsByCollection} productsPerSet={productsPerSet} />
 			</div>
 		</div>
 	)
