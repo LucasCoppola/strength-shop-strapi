@@ -1,7 +1,11 @@
-import ProductType from '../types/productType'
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react'
+import { useContext } from 'react'
+import { CartContext } from '../App'
+import ProductType from '../types/productType'
 
 const FeaturedCard = ({ product }: { product: ProductType }) => {
+	const [cartProducts, setCartProducts] = useContext<ProductType[] | any>(CartContext)
+
 	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 
 	return (
@@ -21,6 +25,7 @@ const FeaturedCard = ({ product }: { product: ProductType }) => {
 			</CardBody>
 			<CardFooter className="pt-0">
 				<Button
+					onClick={() => setCartProducts([...cartProducts, product])}
 					ripple={false}
 					fullWidth={true}
 					className="font-class bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"

@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
+import { CartContext } from '../App'
+import ProductType from '../types/productType'
 
 const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void }) => {
+	const [cartProducts] = useContext<ProductType[]>(CartContext)
 	const [isOpen, setIsOpen] = useState(false)
 	const [prevScrollPos, setPrevScrollPos] = useState(0)
 	const [isVisible, setIsVisible] = useState(true)
@@ -75,7 +78,7 @@ const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void
 						<div className="flex justify-center">
 							<a onClick={() => setIsDrawerOpen(true)} className="relative transform transition-colors duration-300 hover:text-gray-600" href="#">
 								<AiOutlineShoppingCart size={24} />
-								<span className="absolute left-0 top-0 rounded-full bg-blue-500 p-1 text-xs text-white"></span>
+								{cartProducts.length > 0 ? <span className="absolute left-0 top-0 rounded-full bg-blue-500 p-1 text-xs text-white"></span> : ''}
 							</a>
 						</div>
 					</div>

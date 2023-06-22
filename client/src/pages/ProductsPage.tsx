@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import Accordion from '../components/Accordion'
-
 import ProductType from '../types/productType'
-import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
-import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
 
 import { Select, Option } from '@material-tailwind/react'
+import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
+import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
 
 const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])

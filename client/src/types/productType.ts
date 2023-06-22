@@ -1,4 +1,5 @@
 type ProductType = {
+	length: number
 	id: number
 	attributes: {
 		id: number
