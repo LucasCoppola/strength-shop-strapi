@@ -4,17 +4,13 @@ import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import { CartContext } from '../App'
 import ProductType from '../types/productType'
 
-const ProductCard = ({ product }: { product: ProductType }) => {
+const ProductCard = ({ product, setIsCardClicked }: { product: ProductType; setIsCardClicked: (value: boolean) => void }) => {
 	const [cartProducts, setCartProducts] = useContext(CartContext)
 	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 
-	const handleAddToCart = () => {
-		setCartProducts([...cartProducts, product])
-	}
-
 	return (
 		<div className="group relative rounded-lg border hover:shadow-lg">
-			<Link to={`/products/${product.id}`} title={product.attributes.name}>
+			<Link to={`/products/${product.id}`} title={product.attributes.name} onClick={() => setIsCardClicked(true)}>
 				<div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 relative w-full overflow-hidden">
 					<img
 						src={image}
@@ -26,7 +22,10 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 				<p className="mt-1 px-2 pb-2 text-base font-medium text-gray-900">${product.attributes.price}</p>
 			</Link>
 			<button
-				onClick={handleAddToCart}
+				onClick={() => {
+					setIsCardClicked(false)
+					setCartProducts([...cartProducts, product])
+				}}
 				title="Add to cart"
 				className="absolute bottom-[4.5rem] right-[4.5rem] flex items-center rounded-full bg-gray-900 px-6 py-2 opacity-0 transition-colors duration-300 group-hover:opacity-100"
 			>
