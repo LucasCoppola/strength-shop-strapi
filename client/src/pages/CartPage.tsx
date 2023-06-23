@@ -33,7 +33,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 
 				{cartProducts.length > 0 ? (
 					<>
-						<div className="max-h-[calc(100vh-300px)] flex-grow overflow-y-auto">
+						<div className="custom-scrollbar max-h-[calc(100vh-300px)] flex-grow overflow-y-auto p-2">
 							<ul className="divide-y divide-gray-200">
 								{Array.isArray(cartProducts) &&
 									cartProducts.map((product: ProductType) => (
