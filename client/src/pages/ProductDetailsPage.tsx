@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import ProductType from '../types/productType'
 import CategoryCarousel from '../components/CategoryCarousel'
 import CollectionCarousel from '../components/CollectionCarousel'
+import { CartContext } from '../App'
 
 const ProductDetailsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
+	const [cartProducts, setCartProducts] = useContext(CartContext)
+
 	const { id } = useParams()
 	const product = products.find((product) => product.id === Number(id))
 	const image = import.meta.env.VITE_IMAGE + product?.attributes.image.data.attributes.url
@@ -61,6 +64,7 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 							<li>Solid rubber construction</li>
 						</ul>
 						<Button
+							onClick={() => setCartProducts([...cartProducts, product])}
 							color="gray"
 							className="mt-6 inline-flex items-center rounded-full border-none bg-gray-900 px-8 py-2 text-base font-semibold hover:shadow-xl"
 						>
@@ -70,7 +74,6 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 					</div>
 				</div>
 			)}
-
 			{/* By Category */}
 			<div className="mt-12">
 				<h3 className="mb-6 text-3xl font-bold text-gray-800">
@@ -78,7 +81,6 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 				</h3>
 				<CategoryCarousel products={filteredProductsByCategory} productsPerSet={productsPerSet} />
 			</div>
-
 			{/* By Collection */}
 			<div className="mt-12">
 				<h3 className="mb-6 text-3xl font-bold text-gray-800">

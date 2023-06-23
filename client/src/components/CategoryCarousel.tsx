@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { IconButton } from '@material-tailwind/react'
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs'
 import ProductCard from '../components/ProductCard'
 import ProductType from '../types/productType'
 
 const CategoryCarousel = ({ products, productsPerSet }: { products: ProductType[]; productsPerSet: number }) => {
-	const [isCardClicked, setIsCardClicked] = useState(false)
 	const [startIndex, setStartIndex] = useState(0)
 
 	const handlePrevClick = () => {
@@ -20,13 +19,6 @@ const CategoryCarousel = ({ products, productsPerSet }: { products: ProductType[
 	const showNextButton = startIndex + productsPerSet < products.length
 
 	const visibleProducts = products.slice(startIndex, startIndex + productsPerSet)
-
-	useEffect(() => {
-		if (isCardClicked) {
-			window.scrollTo(0, 0)
-			setIsCardClicked(false)
-		}
-	}, [isCardClicked])
 
 	return (
 		<div className="flex items-center justify-center space-x-10">
@@ -46,7 +38,7 @@ const CategoryCarousel = ({ products, productsPerSet }: { products: ProductType[
 							key={product.id}
 							className="h-[19rem] w-52 overflow-hidden rounded-lg hover:shadow-lg md:h-[19.5rem] lg:h-[16.5rem] lg:w-40 xl:h-[18rem] xl:w-52"
 						>
-							<ProductCard product={product} setIsCardClicked={setIsCardClicked} />
+							<ProductCard product={product} />
 						</div>
 					))}
 				</div>

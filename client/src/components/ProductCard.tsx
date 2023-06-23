@@ -1,16 +1,15 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import { CartContext } from '../App'
 import ProductType from '../types/productType'
 
-const ProductCard = ({ product, setIsCardClicked }: { product: ProductType; setIsCardClicked: (value: boolean) => void }) => {
+const ProductCard = ({ product }: { product: ProductType }) => {
 	const [cartProducts, setCartProducts] = useContext(CartContext)
 	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 
 	return (
 		<div className="group relative rounded-lg border hover:shadow-lg">
-			<Link to={`/products/${product.id}`} title={product.attributes.name} onClick={() => setIsCardClicked(true)}>
+			<a href={`/products/${product.id}`} title={product.attributes.name}>
 				<div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 relative w-full overflow-hidden">
 					<img
 						src={image}
@@ -20,10 +19,9 @@ const ProductCard = ({ product, setIsCardClicked }: { product: ProductType; setI
 				</div>
 				<h3 className="mt-4 px-2 pb-1 text-sm text-gray-700">{product.attributes.name}</h3>
 				<p className="mt-1 px-2 pb-2 text-base font-medium text-gray-900">${product.attributes.price}</p>
-			</Link>
+			</a>
 			<button
 				onClick={() => {
-					setIsCardClicked(false)
 					setCartProducts([...cartProducts, product])
 				}}
 				title="Add to cart"

@@ -4,7 +4,7 @@ import { CartContext } from '../App'
 import ProductType from '../types/productType'
 
 const FeaturedCard = ({ product }: { product: ProductType }) => {
-	const [cartProducts, setCartProducts] = useContext<ProductType[] | any>(CartContext)
+	const [cartProducts, setCartProducts] = useContext(CartContext)
 
 	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 

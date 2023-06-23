@@ -3,13 +3,14 @@ import ProductCard from '../components/ProductCard'
 import Accordion from '../components/Accordion'
 import ProductType from '../types/productType'
 
-import { Select, Option } from '@material-tailwind/react'
+import { Select, Option, Spinner } from '@material-tailwind/react'
 import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
 import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
 
 const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])
 	const [selectedSort, setSelectedSort] = useState<string | undefined>('')
+	// const [isCardClicked, setIsCardClicked] = useState(false)
 
 	// Filters
 	const [categoryFilters, setCategoryFilters] = useState<(string | null)[]>([])
@@ -112,13 +113,17 @@ const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[
 					{/* Products List */}
 					<div className="flex flex-grow flex-col">
 						{isLoading ? (
-							<p className="flex justify-center text-xl font-semibold text-gray-800">Loading...</p>
+							<Spinner className="m-auto flex h-10 w-10 " color="gray" />
 						) : isError ? (
 							<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching products</p>
 						) : (
 							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 								{sortedProducts.map((product) => (
-									<ProductCard product={product} key={product.id} />
+									<ProductCard
+										product={product}
+										key={product.id}
+										// setIsCardClicked={setIsCardClicked}
+									/>
 								))}
 							</div>
 						)}
