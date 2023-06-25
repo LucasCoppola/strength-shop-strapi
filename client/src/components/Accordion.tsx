@@ -16,19 +16,15 @@ const Icon = ({ id, open }: { id: number; open: number }) => {
 	)
 }
 
-const AccordionComponent = ({
-	header,
-	options,
-	selectedFilters,
-	setSelectedFilters,
-	accordionId
-}: {
+type Props = {
 	header: string
 	options: string[]
 	selectedFilters: (string | null)[]
 	setSelectedFilters: React.Dispatch<React.SetStateAction<(string | null)[]>>
 	accordionId: number
-}) => {
+}
+
+const AccordionComponent = ({ header, options, selectedFilters, setSelectedFilters, accordionId }: Props) => {
 	const [open, setOpen] = useState(0)
 
 	const handleOptionChange = (i: number) => {

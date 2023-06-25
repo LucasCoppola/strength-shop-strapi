@@ -19,17 +19,14 @@ const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[
 	useEffect(() => {
 		let filteredProducts = [...products]
 
-		// Apply category filter
 		if (categoryFilters.length > 0) {
 			filteredProducts = filterCategory(filteredProducts, categoryFilters)
 		}
 
-		// Apply collection filter
 		if (collectionFilters.length > 0) {
 			filteredProducts = filterCollection(filteredProducts, collectionFilters)
 		}
 
-		// Apply price filter
 		if (priceFilters.length > 0) {
 			filteredProducts = filterPrice(filteredProducts, priceFilters)
 		}
