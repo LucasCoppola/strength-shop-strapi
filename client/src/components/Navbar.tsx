@@ -30,7 +30,7 @@ const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void
 		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
 			<div className="container mx-auto px-6 py-3 text-gray-700 md:flex md:justify-between md:py-2">
 				<div className="flex items-center justify-between">
-					<a href="#">
+					<a href="/">
 						<img className="h-6 w-auto sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
 					</a>
 
@@ -55,7 +55,7 @@ const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void
 						<a href="#" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">
 							About
 						</a>
-						<a href="#" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">
+						<a href="/products" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">
 							Shop
 						</a>
 						<a href="#" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">

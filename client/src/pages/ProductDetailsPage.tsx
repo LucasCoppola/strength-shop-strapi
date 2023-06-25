@@ -31,14 +31,8 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 				setProductsPerSet(1)
 			}
 		}
-
-		// Add event listener to window resize
 		window.addEventListener('resize', handleResize)
-
-		// Call the handleResize function initially
 		handleResize()
-
-		// Clean up the event listener on component unmount
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
@@ -64,6 +58,7 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 								<li>Precision and durability</li>
 								<li>Solid rubber construction</li>
 							</ul>
+
 							<Button
 								onClick={() => setCartProducts([...cartProducts, product])}
 								color="gray"
