@@ -10,7 +10,6 @@ import { filterCategory, filterCollection, filterPrice } from '../filter&sort/fi
 const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])
 	const [selectedSort, setSelectedSort] = useState<string | undefined>('')
-	// const [isCardClicked, setIsCardClicked] = useState(false)
 
 	// Filters
 	const [categoryFilters, setCategoryFilters] = useState<(string | null)[]>([])
@@ -119,11 +118,7 @@ const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[
 						) : (
 							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 								{sortedProducts.map((product) => (
-									<ProductCard
-										product={product}
-										key={product.id}
-										// setIsCardClicked={setIsCardClicked}
-									/>
+									<ProductCard product={product} key={product.id} />
 								))}
 							</div>
 						)}

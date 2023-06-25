@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button } from '@material-tailwind/react'
+import { Button, Spinner } from '@material-tailwind/react'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import ProductType from '../types/productType'
 import CategoryCarousel from '../components/CategoryCarousel'
@@ -20,6 +20,7 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 
 	const currentProductCollection = product?.attributes.collection
 	const filteredProductsByCollection = products.filter((product) => product.attributes.collection === currentProductCollection && product.id !== Number(id))
+	const Props = { isLoading, isError }
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -45,7 +46,7 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 	return (
 		<div className="container mx-auto bg-gray-50 px-4 py-8">
 			{isLoading ? (
-				<p className="flex justify-center text-xl font-semibold text-gray-800">Loading...</p>
+				<Spinner className="m-auto flex h-10 w-10 " color="gray" />
 			) : isError ? (
 				<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching product</p>
 			) : (
@@ -79,14 +80,14 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 				<h3 className="mb-6 text-3xl font-bold text-gray-800">
 					Similar {product?.attributes.category.charAt(0).toUpperCase().concat(product?.attributes.category.slice(1))}
 				</h3>
-				<CategoryCarousel products={filteredProductsByCategory} productsPerSet={productsPerSet} />
+				<CategoryCarousel {...Props} products={filteredProductsByCategory} productsPerSet={productsPerSet} />
 			</div>
 			{/* By Collection */}
 			<div className="mt-12">
 				<h3 className="mb-6 text-3xl font-bold text-gray-800">
 					More of {product?.attributes.collection.charAt(0).toUpperCase().concat(product?.attributes.collection.slice(1))}
 				</h3>
-				<CollectionCarousel products={filteredProductsByCollection} productsPerSet={productsPerSet} />
+				<CollectionCarousel {...Props} products={filteredProductsByCollection} productsPerSet={productsPerSet} />
 			</div>
 		</div>
 	)

@@ -2,6 +2,7 @@ import FeaturedCard from '../components/FeaturedCard'
 import CategoryImages from '../api/CategoryImages'
 import ProductType from '../types/productType'
 
+import { Spinner } from '@material-tailwind/react'
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
 
@@ -25,7 +26,7 @@ const HomePage = ({ products, isLoading, isError }: { products: ProductType[]; i
 				<div className=" px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<h2 className="mb-16 text-4xl font-bold text-gray-900">Trending Now</h2>
 					{isLoading ? (
-						<p className="flex justify-center text-xl font-semibold text-gray-800">Loading...</p>
+						<Spinner className="m-auto flex h-10 w-10 " color="gray" />
 					) : isError ? (
 						<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching products</p>
 					) : (

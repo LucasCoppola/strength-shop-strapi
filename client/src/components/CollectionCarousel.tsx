@@ -1,10 +1,17 @@
 import { useState } from 'react'
-import { IconButton } from '@material-tailwind/react'
+import { IconButton, Spinner } from '@material-tailwind/react'
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs'
 import ProductCard from '../components/ProductCard'
 import ProductType from '../types/productType'
 
-const CategoryCarousel = ({ products, productsPerSet }: { products: ProductType[]; productsPerSet: number }) => {
+type Props = {
+	products: ProductType[]
+	productsPerSet: number
+	isLoading: boolean
+	isError: boolean
+}
+
+const CategoryCarousel = ({ products, productsPerSet, isLoading, isError }: Props) => {
 	const [startIndex, setStartIndex] = useState(0)
 
 	const handlePrevClick = () => {
@@ -31,18 +38,24 @@ const CategoryCarousel = ({ products, productsPerSet }: { products: ProductType[
 				<BsChevronLeft className="text-xl text-white" />
 			</IconButton>
 
-			<div className="flex translate-x-0 transform overflow-x-auto">
-				<div className="flex w-full justify-center md:space-x-6 lg:space-x-12 xl:space-x-20">
-					{visibleProducts.map((product) => (
-						<div
-							key={product.id}
-							className="h-[19rem] w-52 overflow-hidden rounded-lg hover:shadow-lg md:h-[19.5rem] lg:h-[16.5rem] lg:w-40 xl:h-[18rem] xl:w-52"
-						>
-							<ProductCard product={product} />
-						</div>
-					))}
+			{isLoading ? (
+				<Spinner className="m-auto flex h-10 w-10 " color="gray" />
+			) : isError ? (
+				<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching product</p>
+			) : (
+				<div className="flex translate-x-0 transform overflow-x-auto">
+					<div className="flex w-full justify-center md:space-x-6 lg:space-x-12 xl:space-x-20">
+						{visibleProducts.map((product) => (
+							<div
+								key={product.id}
+								className="h-[19rem] w-52 overflow-hidden rounded-lg hover:shadow-lg md:h-[19.5rem] lg:h-[16.5rem] lg:w-40 xl:h-[18rem] xl:w-52"
+							>
+								<ProductCard product={product} />
+							</div>
+						))}
+					</div>
 				</div>
-			</div>
+			)}
 
 			<IconButton
 				color="gray"
