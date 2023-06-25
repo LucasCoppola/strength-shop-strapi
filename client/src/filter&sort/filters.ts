@@ -1,27 +1,28 @@
 import ProductType from '../types/productType'
 
 export const filterCategory = (products: ProductType[], categoryFilters: (string | null)[]) => {
-	if (categoryFilters.every((filter) => filter === null)) {
+	console.log(categoryFilters)
+	if (categoryFilters.every((filter) => filter === null || filter === undefined)) {
 		return products
 	}
 
 	return products.filter((product) => {
-		return categoryFilters.some((filter) => filter?.toLowerCase() === product.attributes.category)
+		return categoryFilters.some((filter) => filter === product.attributes.category)
 	})
 }
 
 export const filterCollection = (products: ProductType[], collectionFilters: (string | null)[]) => {
-	if (collectionFilters.every((filter) => filter === null)) {
+	if (collectionFilters.every((filter) => filter === null || filter === undefined)) {
 		return products
 	}
 
 	return products.filter((product) => {
-		return collectionFilters.some((filter) => filter?.toLowerCase() === product.attributes.collection)
+		return collectionFilters.some((filter) => filter === product.attributes.collection)
 	})
 }
 
 export const filterPrice = (products: ProductType[], priceFilters: (string | null)[]) => {
-	if (priceFilters.every((filter) => filter === null)) {
+	if (priceFilters.every((filter) => filter === null || filter === undefined)) {
 		return products
 	}
 
