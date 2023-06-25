@@ -57,6 +57,10 @@
         "Functional",
         "Racks"
       ]
+    },
+    "quantity": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
