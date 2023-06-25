@@ -20,7 +20,6 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 
 	const currentProductCollection = product?.attributes.collection
 	const filteredProductsByCollection = products.filter((product) => product.attributes.collection === currentProductCollection && product.id !== Number(id))
-	const Props = { isLoading, isError }
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -46,49 +45,51 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 	return (
 		<div className="container mx-auto bg-gray-50 px-4 py-8">
 			{isLoading ? (
-				<Spinner className="m-auto flex h-10 w-10 " color="gray" />
+				<Spinner className="m-auto flex h-20 w-20" color="gray" />
 			) : isError ? (
 				<p className="flex justify-center text-xl font-semibold text-gray-800">Error fetching product</p>
 			) : (
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-					<div className="flex items-center justify-center">
-						<img src={image} alt={product?.attributes.name} className="w-2/3" />
+				<>
+					<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+						<div className="flex items-center justify-center">
+							<img src={image} alt={product?.attributes.name} className="w-2/3" />
+						</div>
+						<div>
+							<h2 className="mb-4 text-3xl font-bold text-gray-800">{product?.attributes.name}</h2>
+							<p className="mb-4 text-2xl  text-gray-900">${product?.attributes.price}</p>
+							<p className="mb-6 text-sm text-gray-700">{product?.attributes.description}</p>
+							<h3 className="mb-2 text-lg font-semibold">Features:</h3>
+							<ul className="list-inside list-disc">
+								<li>Built for competition</li>
+								<li>Precision and durability</li>
+								<li>Solid rubber construction</li>
+							</ul>
+							<Button
+								onClick={() => setCartProducts([...cartProducts, product])}
+								color="gray"
+								className="mt-6 inline-flex items-center rounded-full border-none bg-gray-900 px-8 py-2 text-base font-semibold hover:shadow-xl"
+							>
+								<MdOutlineAddShoppingCart size={18} className="mr-2" />
+								Add to Cart
+							</Button>
+						</div>
 					</div>
-					<div>
-						<h2 className="mb-4 text-3xl font-bold text-gray-800">{product?.attributes.name}</h2>
-						<p className="mb-4 text-2xl  text-gray-900">${product?.attributes.price}</p>
-						<p className="mb-6 text-sm text-gray-700">{product?.attributes.description}</p>
-						<h3 className="mb-2 text-lg font-semibold">Features:</h3>
-						<ul className="list-inside list-disc">
-							<li>Built for competition</li>
-							<li>Precision and durability</li>
-							<li>Solid rubber construction</li>
-						</ul>
-						<Button
-							onClick={() => setCartProducts([...cartProducts, product])}
-							color="gray"
-							className="mt-6 inline-flex items-center rounded-full border-none bg-gray-900 px-8 py-2 text-base font-semibold hover:shadow-xl"
-						>
-							<MdOutlineAddShoppingCart size={18} className="mr-2" />
-							Add to Cart
-						</Button>
+
+					<div className="mt-12">
+						<h3 className="mb-6 text-3xl font-bold text-gray-800">
+							Similar {product?.attributes.category.charAt(0).toUpperCase().concat(product?.attributes.category.slice(1))}
+						</h3>
+						<CategoryCarousel products={filteredProductsByCategory} productsPerSet={productsPerSet} />
 					</div>
-				</div>
+
+					<div className="mt-12">
+						<h3 className="mb-6 text-3xl font-bold text-gray-800">
+							More of {product?.attributes.collection.charAt(0).toUpperCase().concat(product?.attributes.collection.slice(1))}
+						</h3>
+						<CollectionCarousel products={filteredProductsByCollection} productsPerSet={productsPerSet} />
+					</div>
+				</>
 			)}
-			{/* By Category */}
-			<div className="mt-12">
-				<h3 className="mb-6 text-3xl font-bold text-gray-800">
-					Similar {product?.attributes.category.charAt(0).toUpperCase().concat(product?.attributes.category.slice(1))}
-				</h3>
-				<CategoryCarousel {...Props} products={filteredProductsByCategory} productsPerSet={productsPerSet} />
-			</div>
-			{/* By Collection */}
-			<div className="mt-12">
-				<h3 className="mb-6 text-3xl font-bold text-gray-800">
-					More of {product?.attributes.collection.charAt(0).toUpperCase().concat(product?.attributes.collection.slice(1))}
-				</h3>
-				<CollectionCarousel {...Props} products={filteredProductsByCollection} productsPerSet={productsPerSet} />
-			</div>
 		</div>
 	)
 }
