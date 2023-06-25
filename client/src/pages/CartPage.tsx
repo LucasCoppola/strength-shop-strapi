@@ -1,22 +1,41 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { CartContext } from '../App'
 import { Drawer, Typography, IconButton } from '@material-tailwind/react'
 import { HiOutlineXMark } from 'react-icons/hi2'
 import ProductType from '../types/productType'
 
 const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; setIsDrawerOpen: (value: boolean) => void }) => {
-	const [cartProducts] = useContext<ProductType[]>(CartContext)
+	const [cartProducts, setCartProducts] = useContext(CartContext)
+	const [selectQuantity, setSelectQuantity] = useState<{ [key: number]: number }>({})
 	const overlayRef = useRef<HTMLDivElement>(null)
 
 	const handleImage = (product: ProductType) => {
 		const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 		return image
 	}
+
+	const handleRemove = (id: number) => {
+		setCartProducts((prevProducts: ProductType[]) => {
+			return prevProducts.filter((product) => product.id !== id)
+		})
+	}
+
+	const handleQuantity = (id: number, quantity: number) => {
+		setSelectQuantity((prevSelectQuantity) => ({
+			...prevSelectQuantity,
+			[id]: quantity
+		}))
+	}
+
+	const handleTotal = () => {
+		return cartProducts.reduce((total: number, product: ProductType) => total + product.attributes.price * (selectQuantity[product.id] || 1), 0)
+	}
+
 	useEffect(() => {
 		if (cartProducts.length > 0) {
 			setIsDrawerOpen(true)
 		}
-	}, [cartProducts])
+	}, [cartProducts, setIsDrawerOpen])
 
 	useEffect(() => {
 		if (isDrawerOpen) {
@@ -37,7 +56,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 			ref={overlayRef}
 			style={{
 				pointerEvents: isDrawerOpen ? 'auto' : 'none',
-				zIndex: 9999,
+				zIndex: '50',
 				position: 'fixed',
 				top: 0,
 				left: 0,
@@ -46,7 +65,14 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 			}}
 		>
 			<div className="flex h-full flex-col">
-				<Drawer size={350} placement="right" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} className="p-4">
+				<Drawer
+					transition={{ type: 'tween', duration: 0.2 }}
+					size={350}
+					placement="right"
+					open={isDrawerOpen}
+					onClose={() => setIsDrawerOpen(false)}
+					className="p-4"
+				>
 					<div className="mb-6 flex items-center justify-between">
 						<Typography variant="h4" color="blue-gray" className="font-class font-thin">
 							Shopping cart
@@ -64,31 +90,54 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 										cartProducts.map((product: ProductType) => (
 											<li key={product.id} className="flex py-6">
 												<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-													<img
-														src={handleImage(product)}
-														alt={product.attributes.name}
-														className="h-full w-full object-cover object-center"
-													/>
+													<a href={`/products/${product.id}`}>
+														<img
+															src={handleImage(product)}
+															alt={product.attributes.name}
+															className="h-full w-full object-cover object-center"
+														/>
+													</a>
 												</div>
 
 												<div className="ml-4 flex flex-1 flex-col">
 													<div>
 														<div className="flex justify-between text-base font-medium text-gray-900">
 															<h3>
-																<a
-																// href={product.href}
-																>
-																	{product.attributes.name}
-																</a>
+																<a href={`/products/${product.id}`}>{product.attributes.name}</a>
 															</h3>
-															<p className="ml-4">{product.attributes.price}</p>
+															<p className="ml-4">${product.attributes.price}</p>
 														</div>
 													</div>
 													<div className="flex flex-1 items-end justify-between text-sm">
-														<p className="text-gray-500">Qty 3</p>
+														<div className="mt-4 flex items-center">
+															<label htmlFor="select-qty" className="mr-1">
+																Qty:
+															</label>
+															<select
+																name="select-qty"
+																value={selectQuantity[product.id] || 1}
+																onChange={(e) => {
+																	const quantity = Number(e.target.value)
+																	handleQuantity(product.id, quantity)
+																}}
+																className="rounded border border-gray-300 px-1 py-0.5"
+															>
+																<option value={1}>1</option>
+																<option value={2}>2</option>
+																<option value={3}>3</option>
+																<option value={4}>4</option>
+																<option value={5}>5</option>
+																<option value={6}>6</option>
+																<option value={7}>7</option>
+															</select>
+														</div>
 
 														<div className="flex">
-															<button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+															<button
+																onClick={() => handleRemove(product.id)}
+																type="button"
+																className="font-medium text-indigo-600 hover:text-indigo-500"
+															>
 																Remove
 															</button>
 														</div>
@@ -102,7 +151,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 							<div className="border-t border-gray-200 pt-6">
 								<div className="flex justify-between text-base font-medium text-gray-900">
 									<p>Total:</p>
-									<p>$262.00</p>
+									<p className="ml-4">${handleTotal().toFixed(2)}</p>
 								</div>
 
 								<div className="mt-6">
@@ -116,7 +165,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 								<div className="mt-6 flex justify-center text-center text-sm text-gray-500">
 									<p>
 										or{' '}
-										<button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+										<button onClick={() => setIsDrawerOpen(false)} className="font-medium text-indigo-600 hover:text-indigo-500">
 											Continue Shopping
 											<span aria-hidden="true"> &rarr;</span>
 										</button>
