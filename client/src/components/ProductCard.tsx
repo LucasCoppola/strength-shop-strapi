@@ -3,9 +3,11 @@ import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import { CartContext } from '../App'
 import ProductType from '../types/productType'
 
-const ProductCard = ({ product }: { product: ProductType }) => {
+const ProductCard = ({ product, setIsDrawerOpen }: { product: ProductType; setIsDrawerOpen: (open: boolean) => void }) => {
 	const [cartProducts, setCartProducts] = useContext(CartContext)
 	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
+
+	const isDisabled = cartProducts.some((p: ProductType) => p.id === product.id)
 
 	return (
 		<div className="group relative rounded-lg border hover:shadow-lg">
@@ -23,9 +25,13 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 			<button
 				onClick={() => {
 					setCartProducts([...cartProducts, product])
+					setIsDrawerOpen(true)
 				}}
+				disabled={isDisabled}
 				title="Add to cart"
-				className="absolute bottom-[4.5rem] right-[4.5rem] flex items-center rounded-full bg-gray-900 px-6 py-2 opacity-0 transition-colors duration-300 group-hover:opacity-100"
+				className={`absolute bottom-[4.5rem] right-[4.5rem] flex items-center rounded-full bg-gray-900 px-6 py-2 opacity-0 transition-colors duration-300 group-hover:opacity-100 ${
+					isDisabled ? 'cursor-not-allowed group-hover:opacity-50' : ''
+				}`}
 			>
 				<MdOutlineAddShoppingCart size={24} color="white" />
 			</button>

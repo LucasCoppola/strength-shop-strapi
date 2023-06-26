@@ -15,7 +15,10 @@ export const CartContext = createContext<ProductType[] | any>([])
 
 const App = () => {
 	const [products, setProducts] = useState<ProductType[]>([])
-	const [cartProducts, setCartProducts] = useState<ProductType[]>([])
+	const [cartProducts, setCartProducts] = useState<ProductType>(() => {
+		const cachedCartProducts = localStorage.getItem('cartProducts')
+		return cachedCartProducts ? JSON.parse(cachedCartProducts) : []
+	})
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
@@ -24,17 +27,27 @@ const App = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await fetchProducts()
-				setProducts(data)
-				setIsLoading(false)
+				const cachedProducts = localStorage.getItem('products')
+				if (cachedProducts) {
+					setProducts(JSON.parse(cachedProducts))
+					setIsLoading(false)
+				} else {
+					const data = await fetchProducts()
+					setProducts(data)
+					setIsLoading(false)
+					localStorage.setItem('products', JSON.stringify(data))
+				}
 			} catch (error) {
 				setIsLoading(false)
 				setIsError(true)
 			}
 		}
-
 		fetchData()
 	}, [])
+
+	useEffect(() => {
+		localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
+	}, [cartProducts])
 
 	const Props = {
 		products,
@@ -48,8 +61,8 @@ const App = () => {
 				<Navbar setIsDrawerOpen={setIsDrawerOpen} />
 				<CartPage isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
 				<Routes>
-					<Route path="/" element={<HomePage {...Props} />} />
-					<Route path="/products" element={<ProductsPage {...Props} />} />
+					<Route path="/" element={<HomePage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
+					<Route path="/products" element={<ProductsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 					<Route path="/products/:id" element={<ProductDetailsPage {...Props} />} />
 				</Routes>
 			</CartContext.Provider>

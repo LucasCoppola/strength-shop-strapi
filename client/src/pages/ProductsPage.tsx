@@ -7,7 +7,14 @@ import { Select, Option, Spinner } from '@material-tailwind/react'
 import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
 import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
 
-const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
+type Props = {
+	products: ProductType[]
+	isLoading: boolean
+	isError: boolean
+	setIsDrawerOpen: (open: boolean) => void
+}
+
+const ProductsPage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 	const [sortedProducts, setSortedProducts] = useState<ProductType[]>([])
 	const [selectedSort, setSelectedSort] = useState<string | undefined>('')
 
@@ -115,7 +122,7 @@ const ProductsPage = ({ products, isLoading, isError }: { products: ProductType[
 						) : (
 							<div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-0 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 								{sortedProducts.map((product) => (
-									<ProductCard product={product} key={product.id} />
+									<ProductCard product={product} key={product.id} setIsDrawerOpen={setIsDrawerOpen} />
 								))}
 							</div>
 						)}

@@ -32,12 +32,6 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 	}
 
 	useEffect(() => {
-		if (cartProducts.length > 0) {
-			setIsDrawerOpen(true)
-		}
-	}, [cartProducts, setIsDrawerOpen])
-
-	useEffect(() => {
 		if (isDrawerOpen) {
 			document.body.style.overflow = 'hidden'
 			if (overlayRef.current) {
@@ -56,7 +50,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 			ref={overlayRef}
 			style={{
 				pointerEvents: isDrawerOpen ? 'auto' : 'none',
-				zIndex: '50',
+				zIndex: 50,
 				position: 'fixed',
 				top: 0,
 				left: 0,
@@ -86,65 +80,60 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 						<>
 							<div className="custom-scrollbar max-h-[calc(100vh-300px)] flex-grow overflow-y-auto p-2">
 								<ul className="divide-y divide-gray-200">
-									{Array.isArray(cartProducts) &&
-										cartProducts.map((product: ProductType) => (
-											<li key={product.id} className="flex py-6">
-												<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-													<a href={`/products/${product.id}`}>
-														<img
-															src={handleImage(product)}
-															alt={product.attributes.name}
-															className="h-full w-full object-cover object-center"
-														/>
-													</a>
-												</div>
+									{cartProducts.map((product: ProductType) => (
+										<li key={product.id} className="flex py-6">
+											<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+												<a href={`/products/${product.id}`}>
+													<img
+														src={handleImage(product)}
+														alt={product.attributes.name}
+														className="h-full w-full object-cover object-center"
+													/>
+												</a>
+											</div>
 
-												<div className="ml-4 flex flex-1 flex-col">
-													<div>
-														<div className="flex justify-between text-base font-medium text-gray-900">
-															<h3>
-																<a href={`/products/${product.id}`}>{product.attributes.name}</a>
-															</h3>
-															<p className="ml-4">${product.attributes.price}</p>
-														</div>
-													</div>
-													<div className="flex flex-1 items-end justify-between text-sm">
-														<div className="mt-4 flex items-center">
-															<label htmlFor="select-qty" className="mr-1">
-																Qty:
-															</label>
-															<select
-																name="select-qty"
-																value={selectQuantity[product.id] || 1}
-																onChange={(e) => {
-																	const quantity = Number(e.target.value)
-																	handleQuantity(product.id, quantity)
-																}}
-																className="rounded border border-gray-300 px-1 py-0.5"
-															>
-																<option value={1}>1</option>
-																<option value={2}>2</option>
-																<option value={3}>3</option>
-																<option value={4}>4</option>
-																<option value={5}>5</option>
-																<option value={6}>6</option>
-																<option value={7}>7</option>
-															</select>
-														</div>
-
-														<div className="flex">
-															<button
-																onClick={() => handleRemove(product.id)}
-																type="button"
-																className="font-medium text-indigo-600 hover:text-indigo-500"
-															>
-																Remove
-															</button>
-														</div>
+											<div className="ml-4 flex flex-1 flex-col">
+												<div>
+													<div className="flex justify-between text-base font-medium text-gray-900">
+														<h3>{product.attributes.name}</h3>
+														<p className="ml-4">${product.attributes.price}</p>
 													</div>
 												</div>
-											</li>
-										))}
+												<div className="flex flex-1 items-end justify-between text-sm">
+													<div className="mt-4 flex items-center">
+														<label htmlFor="select-qty" className="mr-1">
+															Qty:
+														</label>
+														<select
+															name="select-qty"
+															value={selectQuantity[product.id] || 1}
+															onChange={(e) => {
+																const quantity = Number(e.target.value)
+																handleQuantity(product.id, quantity)
+															}}
+															className="rounded border border-gray-300 px-1 py-0.5"
+														>
+															{Array.from({ length: 7 }, (_, i) => i + 1).map((qty) => (
+																<option key={qty} value={qty}>
+																	{qty}
+																</option>
+															))}
+														</select>
+													</div>
+
+													<div className="flex">
+														<button
+															onClick={() => handleRemove(product.id)}
+															type="button"
+															className="font-medium text-indigo-600 hover:text-indigo-500"
+														>
+															Remove
+														</button>
+													</div>
+												</div>
+											</div>
+										</li>
+									))}
 								</ul>
 							</div>
 

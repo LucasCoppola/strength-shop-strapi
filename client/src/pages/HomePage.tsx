@@ -6,7 +6,14 @@ import { Spinner } from '@material-tailwind/react'
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
 import { BiWorld, BiCheckShield } from 'react-icons/bi'
 
-const HomePage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
+type Props = {
+	products: ProductType[]
+	isLoading: boolean
+	isError: boolean
+	setIsDrawerOpen: (open: boolean) => void
+}
+
+const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 	return (
 		<>
 			<main className="py-16">
@@ -34,7 +41,7 @@ const HomePage = ({ products, isLoading, isError }: { products: ProductType[]; i
 							{products
 								.filter((product) => product.attributes.type === 'featured')
 								.map((product) => (
-									<FeaturedCard key={product.id} product={product} />
+									<FeaturedCard key={product.id} product={product} setIsDrawerOpen={setIsDrawerOpen} />
 								))}
 						</div>
 					)}
