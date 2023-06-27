@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { CartContext } from '../App'
 import { Drawer, Typography, IconButton } from '@material-tailwind/react'
 import { HiOutlineXMark } from 'react-icons/hi2'
+import { FaTrash } from 'react-icons/fa'
 import ProductType from '../types/productType'
 
 const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; setIsDrawerOpen: (value: boolean) => void }) => {
@@ -78,7 +79,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 
 					{cartProducts.length > 0 ? (
 						<>
-							<div className="custom-scrollbar max-h-[calc(100vh-300px)] flex-grow overflow-y-auto p-2">
+							<div className="custom-scrollbar max-h-[calc(100vh-300px)] flex-grow overflow-y-auto p-3">
 								<ul className="divide-y divide-gray-200">
 									{cartProducts.map((product: ProductType) => (
 										<li key={product.id} className="flex py-6">
@@ -93,13 +94,21 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 											</div>
 
 											<div className="ml-4 flex flex-1 flex-col">
-												<div>
-													<div className="flex justify-between text-base font-medium text-gray-900">
-														<h3>{product.attributes.name}</h3>
-														<p className="ml-4">${product.attributes.price}</p>
+												<div className="flex justify-between text-base font-medium text-gray-900">
+													<h3>{product.attributes.name}</h3>
+													<div className="flex items-center">
+														<button
+															onClick={() => handleRemove(product.id)}
+															type="button"
+															className="font-medium text-gray-700 hover:text-gray-800"
+														>
+															<FaTrash />
+														</button>
 													</div>
 												</div>
-												<div className="flex flex-1 items-end justify-between text-sm">
+
+												<div className="mb-3 flex flex-1 items-end justify-between text-sm">
+													<div className="text-right text-base">${product.attributes.price}</div>
 													<div className="mt-4 flex items-center">
 														<label htmlFor="select-qty" className="mr-1">
 															Qty:
@@ -120,16 +129,6 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 															))}
 														</select>
 													</div>
-
-													<div className="flex">
-														<button
-															onClick={() => handleRemove(product.id)}
-															type="button"
-															className="font-medium text-indigo-600 hover:text-indigo-500"
-														>
-															Remove
-														</button>
-													</div>
 												</div>
 											</div>
 										</li>
@@ -145,7 +144,7 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 
 								<div className="mt-6">
 									<a
-										href="#"
+										href="/checkout"
 										className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
 									>
 										Checkout
