@@ -27,7 +27,7 @@ const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void
 	}, [prevScrollPos])
 
 	return (
-		<nav className={`sticky top-0 z-50 bg-gray-100 shadow-md transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+		<nav className={`sticky top-0 z-50 bg-gray-50 shadow-md transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
 			<div className="container mx-auto px-6 py-3 text-gray-700 md:flex md:justify-between md:py-2">
 				<div className="flex items-center justify-between">
 					<a href="/">
@@ -78,7 +78,11 @@ const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void
 						<div className="flex justify-center">
 							<a onClick={() => setIsDrawerOpen(true)} className="relative transform transition-colors duration-300 hover:text-gray-600" href="#">
 								<AiOutlineShoppingCart size={24} />
-								{cartProducts.length > 0 ? <span className="absolute left-0 top-0 rounded-full bg-blue-500 p-1 text-xs text-white"></span> : ''}
+								{cartProducts.length > 0 && (
+									<span className="absolute right-[-0.6rem] top-[-0.2rem] rounded-full bg-blue-500 px-1.5 py-2 font-body text-xs/[0.5px] font-semibold text-white">
+										{cartProducts.length}
+									</span>
+								)}
 							</a>
 						</div>
 					</div>

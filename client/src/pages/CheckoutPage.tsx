@@ -146,14 +146,19 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 						) : (
 							<div className="custom-scrollbar max-h-[300px] flex-grow overflow-y-auto overflow-x-hidden p-3">
 								{cartProducts.map((product: ProductType) => (
-									<div className="mb-4 flex items-center justify-between">
+									<div key={product.id} className="mb-4 flex items-center justify-between">
 										<div className="flex items-center">
-											<img
-												src={handleImage(product)}
-												alt={product.attributes.name}
-												className="mr-4 h-20 w-20 rounded-md object-contain"
-											/>
-											<div className="flex flex-col">
+											<div className="relative max-w-[80px]">
+												<img
+													src={handleImage(product)}
+													alt={product.attributes.name}
+													className="mr-4 h-20 w-20 rounded-md object-contain"
+												/>
+												<span className="absolute right-0 top-0 w-6 rounded-full bg-gray-500 p-1 text-center text-xs text-white">
+													{product.attributes.quantity}
+												</span>
+											</div>
+											<div className="ml-1 flex flex-grow flex-col">
 												<h3 className="text-base font-medium text-gray-900">{product.attributes.name}</h3>
 												<p className="text-sm text-gray-600">${product.attributes.price}</p>
 											</div>
