@@ -61,7 +61,7 @@ const ProductsPage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) 
 	}, [selectedSort, categoryFilters, collectionFilters, priceFilters, products])
 
 	return (
-		<div className="mx-auto max-w-7xl bg-white">
+		<div className="mx-auto max-w-7xl bg-gray-50">
 			<div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
 				<div className="mb-4 flex items-center justify-between">
 					<h2 className="text-lg font-bold text-gray-700 md:text-2xl">

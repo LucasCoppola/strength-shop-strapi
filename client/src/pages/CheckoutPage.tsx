@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { CartContext } from '../App'
-import { AiFillApple } from 'react-icons/ai'
 import { Spinner } from '@material-tailwind/react'
 import ProductType from '../types/productType'
 
@@ -14,14 +13,12 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 
 	return (
 		<div className="flex justify-center py-8">
-			<div className="mx-4 w-full max-w-5xl rounded-md bg-white">
+			<div className="mx-4 w-full max-w-5xl rounded-md bg-gray-50">
 				<div className="flex flex-col md:flex-row">
 					{/* Payment Info */}
 					<div className="w-full border-b px-16 py-8 md:w-2/3 md:border-b-0 md:border-r">
-						<h2 className="text-lg font-semibold text-gray-800">Payment Info</h2>
-						<button className="my-8 flex w-full justify-center rounded-md bg-black px-4 py-2 text-sm font-semibold text-white">
-							<AiFillApple color="#fff" size={20} />
-							Pay
+						<button className="my-8 flex w-full justify-center rounded-md bg-[#FFBF00] py-2 text-sm font-semibold hover:bg-[#FFA500]">
+							<img src="../../assets/paypal.png" alt="paypal logo" className="w-30 h-7 object-cover" />
 						</button>
 
 						<hr className="my-4" />
@@ -135,7 +132,9 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 								Save this information for next time
 							</label>
 						</div>
-						<button className="w-full rounded-md bg-black px-4 py-2 text-sm font-semibold text-white">Pay (insert total)</button>
+						<button className="w-full rounded-md bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-900">
+							Pay (insert total)
+						</button>
 					</div>
 
 					{/* Product List */}

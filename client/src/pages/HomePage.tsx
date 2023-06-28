@@ -21,7 +21,7 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 					<div className="relative text-center">
 						<h1 className="my-6 text-4xl font-bold md:text-5xl lg:text-6xl">Welcome to Strength Shop</h1>
 						<p className="mb-8 text-lg lg:text-xl">Discover high-quality strength training equipment and accessories for your fitness journey.</p>
-						<a href="/products" className="shop-btn mx-auto mt-28 bg-gray-100">
+						<a href="/products" className="shop-btn mx-auto mt-28 bg-gray-50">
 							Shop Now
 						</a>
 					</div>
@@ -29,7 +29,7 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 			</main>
 
 			{/* Featured */}
-			<section className="bg-gray-100 text-center">
+			<section className="bg-gray-50 text-center">
 				<div className=" px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<h2 className="mb-16 text-4xl font-bold text-gray-900">Trending Now</h2>
 					{isLoading ? (
@@ -49,7 +49,7 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 			</section>
 
 			{/* Collections */}
-			<section className="bg-gray-100 text-center">
+			<section className="bg-gray-50 text-center">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
 						<h2 className="mb-16 text-4xl font-bold text-gray-900">Collections</h2>
@@ -92,7 +92,7 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 			</section>
 
 			{/* Why Choose Us? */}
-			<section className="bg-gray-100 pb-24 pt-12 text-center text-gray-800">
+			<section className="bg-gray-50 pb-24 pt-12 text-center text-gray-800">
 				<div className="container mx-auto px-4">
 					<h2 className="mb-16 text-4xl font-bold text-gray-900">Why Choose Us?</h2>
 					<div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
