@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react'
 import { useContext } from 'react'
-import { CartContext } from '../App'
+import { CartContext } from '../contexts/CartProvider'
 import ProductType from '../types/productType'
 
 const FeaturedCard = ({ product, setIsDrawerOpen }: { product: ProductType; setIsDrawerOpen: (open: boolean) => void }) => {

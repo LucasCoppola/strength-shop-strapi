@@ -5,7 +5,7 @@ import { MdOutlineAddShoppingCart } from 'react-icons/md'
 import ProductType from '../types/productType'
 import CategoryCarousel from '../components/CategoryCarousel'
 import CollectionCarousel from '../components/CollectionCarousel'
-import { CartContext } from '../App'
+import { CartContext } from '../contexts/CartProvider'
 
 const ProductDetailsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
 	const [cartProducts, setCartProducts] = useContext(CartContext)

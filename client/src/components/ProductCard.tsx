@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { MdOutlineAddShoppingCart } from 'react-icons/md'
-import { CartContext } from '../App'
+import { CartContext } from '../contexts/CartProvider'
 import ProductType from '../types/productType'
 
 const ProductCard = ({ product, setIsDrawerOpen }: { product: ProductType; setIsDrawerOpen: (open: boolean) => void }) => {

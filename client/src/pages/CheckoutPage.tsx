@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { CartContext } from '../App'
+import { CartContext } from '../contexts/CartProvider'
 import { Spinner } from '@material-tailwind/react'
 import ProductType from '../types/productType'
 
