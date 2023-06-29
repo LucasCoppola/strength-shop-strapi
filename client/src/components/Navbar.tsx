@@ -3,10 +3,9 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
 import { CartContext } from '../contexts/CartProvider'
-import ProductType from '../types/productType'
 
 const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void }) => {
-	const [cartProducts] = useContext<ProductType[]>(CartContext)
+	const [cartProducts] = useContext(CartContext)
 	const [isOpen, setIsOpen] = useState(false)
 	const [prevScrollPos, setPrevScrollPos] = useState(0)
 	const [isVisible, setIsVisible] = useState(true)
