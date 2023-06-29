@@ -1,5 +1,8 @@
 # Strength-Shop
+### This project is currently in progress
+
 This is an E-Commerce web application built with React, Typescript and Strapi (headless CMS). It allows users to browse and purchase products, manage their shopping cart, and proceed to checkout.
+
 
 ## Features
 - Browse a catalog of products
