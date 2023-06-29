@@ -11,6 +11,10 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 		return image
 	}
 
+	const handleSubtotal = () => {
+		return cartProducts.reduce((total: number, product: ProductType) => total + product.attributes.price * product.attributes.quantity, 0)
+	}
+
 	return (
 		<div className="flex justify-center py-8">
 			<div className="mx-4 w-full max-w-5xl rounded-md bg-gray-50">
@@ -132,8 +136,8 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 								Save this information for next time
 							</label>
 						</div>
-						<button className="w-full rounded-md bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-900">
-							Pay (insert total)
+						<button className="w-full rounded-md bg-gray-400 px-4 py-2 text-base font-semibold text-gray-800 hover:bg-gray-500">
+							Pay ${handleSubtotal() + 20}
 						</button>
 					</div>
 
@@ -187,7 +191,7 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 						<div>
 							<p className="mb-2 flex justify-between text-sm">
 								<span className="font-semibold text-gray-700">Subtotal</span>
-								<span className="text-gray-900">$149.98</span>
+								<span className="text-gray-900">${handleSubtotal()}</span>
 							</p>
 							<p className="mb-2 flex justify-between text-sm">
 								<span className="font-semibold text-gray-700">Taxes</span>
@@ -200,7 +204,7 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 							<hr className="my-4" />
 							<p className="flex justify-between text-xl font-semibold text-gray-800">
 								<span>Total</span>
-								<span>$169.97</span>
+								<span>${handleSubtotal() + 20}</span>
 							</p>
 						</div>
 					</div>
