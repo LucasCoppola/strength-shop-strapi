@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import ProductsPage from './pages/ProductsPage'
@@ -8,22 +8,15 @@ import CheckoutPage from './pages/CheckoutPage'
 
 import ProductType from './types/productType'
 import fetchProducts from './api/fetchProducts'
+import CartProvider from './contexts/CartProvider'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
-export const CartContext = createContext<ProductType[] | any>([])
-
 const App = () => {
 	const [products, setProducts] = useState<ProductType[]>([])
-	const [cartProducts, setCartProducts] = useState<ProductType>(() => {
-		const cachedCartProducts = localStorage.getItem('cartProducts')
-		return cachedCartProducts ? JSON.parse(cachedCartProducts) : []
-	})
-
-	const [isLoading, setIsLoading] = useState(true)
-	const [isError, setIsError] = useState(false)
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+	const [status, setStatus] = useState({ isLoading: true, isError: false })
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -31,43 +24,38 @@ const App = () => {
 				const cachedProducts = localStorage.getItem('products')
 				if (cachedProducts) {
 					setProducts(JSON.parse(cachedProducts))
-					setIsLoading(false)
+					setStatus({ isLoading: false, isError: false })
 				} else {
 					const data = await fetchProducts()
 					setProducts(data)
-					setIsLoading(false)
+					setStatus({ isLoading: false, isError: false })
 					localStorage.setItem('products', JSON.stringify(data))
 				}
 			} catch (error) {
-				setIsLoading(false)
-				setIsError(true)
+				setStatus({ isLoading: false, isError: true })
 			}
 		}
 		fetchData()
-	}, [])
-
-	useEffect(() => {
-		localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
-	}, [cartProducts])
+	}, [setProducts, setStatus])
 
 	const Props = {
 		products,
-		isLoading,
-		isError
+		isLoading: status.isLoading,
+		isError: status.isError
 	}
 
 	return (
 		<>
-			<CartContext.Provider value={[cartProducts, setCartProducts]}>
+			<CartProvider>
 				<Navbar setIsDrawerOpen={setIsDrawerOpen} />
-				<CartPage isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
 				<Routes>
 					<Route path="/" element={<HomePage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 					<Route path="/products" element={<ProductsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
-					<Route path="/checkout" element={<CheckoutPage isError={isError} isLoading={isLoading} />} />
+					<Route path="/checkout" element={<CheckoutPage isError={status.isError} isLoading={status.isLoading} />} />
 					<Route path="/products/:id" element={<ProductDetailsPage {...Props} />} />
 				</Routes>
-			</CartContext.Provider>
+				<CartPage isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+			</CartProvider>
 			<Footer />
 		</>
 	)

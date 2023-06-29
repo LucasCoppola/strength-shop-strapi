@@ -1,14 +1,15 @@
-import { useContext, useEffect, useRef, useState } from 'react'
-import { CartContext } from '../App'
+import { useContext, useEffect, useRef } from 'react'
 import { Drawer, Typography, IconButton } from '@material-tailwind/react'
 import { HiOutlineXMark } from 'react-icons/hi2'
 import { FaTrash } from 'react-icons/fa'
 import ProductType from '../types/productType'
+import useLocalStorageState from '../hooks/useLocalStorageState'
+import { CartContext } from '../contexts/CartProvider'
 
 const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; setIsDrawerOpen: (value: boolean) => void }) => {
 	const [cartProducts, setCartProducts] = useContext(CartContext)
-	const [selectQuantity, setSelectQuantity] = useState<{ [key: number]: number }>({})
 	const overlayRef = useRef<HTMLDivElement>(null)
+	const [selectQuantity, setSelectQuantity] = useLocalStorageState('selectQuantity', {})
 
 	const handleImage = (product: ProductType) => {
 		const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
@@ -17,12 +18,33 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 
 	const handleRemove = (id: number) => {
 		setCartProducts((prevProducts: ProductType[]) => {
-			return prevProducts.filter((product) => product.id !== id)
+			const updatedProducts = prevProducts.filter((product: ProductType) => product.id !== id)
+			return updatedProducts
+		})
+
+		setSelectQuantity((prevSelectQuantity: { [key: number]: number }) => {
+			const updatedQuantity = { ...prevSelectQuantity }
+			delete updatedQuantity[id]
+			return updatedQuantity
 		})
 	}
 
 	const handleQuantity = (id: number, quantity: number) => {
-		setSelectQuantity((prevSelectQuantity) => ({
+		setCartProducts((prevProducts: ProductType[]) => {
+			return prevProducts.map((product: ProductType) => {
+				if (product.id === id) {
+					return {
+						...product,
+						attributes: {
+							...product.attributes,
+							quantity: quantity
+						}
+					}
+				}
+				return product
+			})
+		})
+		setSelectQuantity((prevSelectQuantity: { [key: number]: number }) => ({
 			...prevSelectQuantity,
 			[id]: quantity
 		}))
@@ -171,4 +193,5 @@ const CartPage = ({ isDrawerOpen, setIsDrawerOpen }: { isDrawerOpen: boolean; se
 		</div>
 	)
 }
+
 export default CartPage
