@@ -1,7 +1,6 @@
 import ProductType from '../types/productType'
 
 export const filterCategory = (products: ProductType[], categoryFilters: (string | null)[]) => {
-	console.log(categoryFilters)
 	if (categoryFilters.every((filter) => filter === null || filter === undefined)) {
 		return products
 	}

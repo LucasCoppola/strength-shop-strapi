@@ -1,6 +1,7 @@
 import FeaturedCard from '../components/FeaturedCard'
 import CategoryImages from '../api/CategoryImages'
 import ProductType from '../types/productType'
+import { useNavigate } from 'react-router-dom'
 
 import { Spinner } from '@material-tailwind/react'
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
@@ -14,6 +15,12 @@ type Props = {
 }
 
 const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
+	const navigate = useNavigate()
+
+	const handleCollectionFilter = (collection: string) => {
+		navigate(`/products?collection=${encodeURIComponent(collection)}`)
+	}
+
 	return (
 		<>
 			<main className="py-16">
@@ -58,32 +65,38 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 							<div className="lg:w-1/3">
 								<div className="group relative h-full">
 									<div className="relative overflow-hidden rounded-[1rem]" style={{ height: '100%' }}>
-										<img
-											src={CategoryImages[0].imageSrc}
-											alt={CategoryImages[0].imageAlt}
-											className="h-full w-full object-cover object-center brightness-50 filter"
-											style={{ height: '100%' }}
-										/>
-										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[0].name}</p>
+										<a className="cursor-pointer" onClick={() => handleCollectionFilter('Racks')}>
+											<img
+												src={CategoryImages[0].imageSrc}
+												alt={CategoryImages[0].imageAlt}
+												className="h-full w-full object-cover object-center brightness-50 filter"
+												style={{ height: '100%' }}
+											/>
+											<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[0].name}</p>
+										</a>
 									</div>
 								</div>
 							</div>
 							<div className="space-y-6 lg:w-2/3">
 								<div className="relative h-80 overflow-hidden rounded-[1rem] bg-white group-hover:opacity-75">
-									<img
-										src={CategoryImages[1].imageSrc}
-										alt={CategoryImages[1].imageAlt}
-										className="h-full w-full object-cover object-center brightness-50 filter"
-									/>
-									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[1].name}</p>
+									<a className="cursor-pointer" onClick={() => handleCollectionFilter('Powerlifting')}>
+										<img
+											src={CategoryImages[1].imageSrc}
+											alt={CategoryImages[1].imageAlt}
+											className="h-full w-full object-cover object-center brightness-50 filter"
+										/>
+										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[1].name}</p>
+									</a>
 								</div>
 								<div className="relative h-80 overflow-hidden rounded-[1rem] group-hover:opacity-75">
-									<img
-										src={CategoryImages[2].imageSrc}
-										alt={CategoryImages[2].imageAlt}
-										className="h-full w-full object-cover object-center brightness-50 filter"
-									/>
-									<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[2].name}</p>
+									<a className="cursor-pointer" onClick={() => handleCollectionFilter('Calisthenics')}>
+										<img
+											src={CategoryImages[2].imageSrc}
+											alt={CategoryImages[2].imageAlt}
+											className="h-full w-full object-cover object-center brightness-50 filter"
+										/>
+										<p className="absolute bottom-0 left-0 px-4 py-2 text-xl font-semibold text-white">{CategoryImages[2].name}</p>
+									</a>
 								</div>
 							</div>
 						</div>

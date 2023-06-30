@@ -6,6 +6,7 @@ import ProductType from '../types/productType'
 import { Select, Option, Spinner } from '@material-tailwind/react'
 import { priceHighToLow, priceLowToHigh, sortNewest } from '../filter&sort/sort'
 import { filterCategory, filterCollection, filterPrice } from '../filter&sort/filters'
+import { useLocation } from 'react-router-dom'
 
 type Props = {
 	products: ProductType[]
@@ -22,6 +23,17 @@ const ProductsPage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) 
 	const [categoryFilters, setCategoryFilters] = useState<(string | null)[]>([])
 	const [collectionFilters, setCollectionFilters] = useState<(string | null)[]>([])
 	const [priceFilters, setPriceFilters] = useState<(string | null)[]>([])
+
+	const location = useLocation()
+	const queryParams = new URLSearchParams(location.search)
+	const collectionFilter = queryParams.get('collection')
+
+	useEffect(() => {
+		if (collectionFilter) {
+			setCollectionFilters([collectionFilter])
+		}
+		window.scrollTo(0, 0)
+	}, [collectionFilter])
 
 	useEffect(() => {
 		let filteredProducts = [...products]
