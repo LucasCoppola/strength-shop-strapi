@@ -52,7 +52,7 @@ const App = () => {
 					<Route path="/" element={<HomePage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 					<Route path="/products" element={<ProductsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 					<Route path="/checkout" element={<CheckoutPage isError={status.isError} isLoading={status.isLoading} />} />
-					<Route path="/products/:id" element={<ProductDetailsPage {...Props} />} />
+					<Route path="/products/:id" element={<ProductDetailsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 				</Routes>
 				<CartPage isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
 			</CartProvider>

@@ -7,11 +7,18 @@ import CategoryCarousel from '../components/CategoryCarousel'
 import CollectionCarousel from '../components/CollectionCarousel'
 import { CartContext } from '../contexts/CartProvider'
 
-const ProductDetailsPage = ({ products, isLoading, isError }: { products: ProductType[]; isLoading: boolean; isError: boolean }) => {
+type Props = {
+	products: ProductType[]
+	setIsDrawerOpen: (isOpen: boolean) => void
+	isLoading: boolean
+	isError: boolean
+}
+
+const ProductDetailsPage = ({ products, setIsDrawerOpen, isLoading, isError }: Props) => {
 	const [cartProducts, setCartProducts] = useContext(CartContext)
 
 	const { id } = useParams()
-	const product = products.find((product) => product.id === Number(id))
+	const product = products.find((product) => product.id === Number(id)) as ProductType
 	const image = import.meta.env.VITE_IMAGE + product?.attributes.image.data.attributes.url
 
 	const [productsPerSet, setProductsPerSet] = useState<number>(3)
@@ -20,6 +27,8 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 
 	const currentProductCollection = product?.attributes.collection
 	const filteredProductsByCollection = products.filter((product) => product.attributes.collection === currentProductCollection && product.id !== Number(id))
+
+	const isDisabled = cartProducts.map((product) => product.id).includes(Number(id))
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -60,9 +69,13 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 							</ul>
 
 							<Button
-								onClick={() => setCartProducts([...cartProducts, product])}
+								onClick={() => {
+									setCartProducts([...cartProducts, product])
+									setIsDrawerOpen(true)
+								}}
+								disabled={isDisabled}
 								color="gray"
-								className="mt-6 inline-flex items-center rounded-full border-none bg-gray-900 px-8 py-2 text-base font-semibold hover:shadow-xl"
+								className="${ mt-6 inline-flex items-center rounded-full border-none bg-gray-900 px-8 py-2 text-base font-semibold hover:shadow-xl"
 							>
 								<MdOutlineAddShoppingCart size={18} className="mr-2" />
 								Add to Cart
@@ -74,14 +87,14 @@ const ProductDetailsPage = ({ products, isLoading, isError }: { products: Produc
 						<h3 className="mb-6 text-3xl font-bold text-gray-800">
 							Similar {product?.attributes.category.charAt(0).toUpperCase().concat(product?.attributes.category.slice(1))}
 						</h3>
-						<CategoryCarousel products={filteredProductsByCategory} productsPerSet={productsPerSet} />
+						<CategoryCarousel products={filteredProductsByCategory} productsPerSet={productsPerSet} setIsDrawerOpen={setIsDrawerOpen} />
 					</div>
 
 					<div className="mt-12">
 						<h3 className="mb-6 text-3xl font-bold text-gray-800">
 							More of {product?.attributes.collection.charAt(0).toUpperCase().concat(product?.attributes.collection.slice(1))}
 						</h3>
-						<CollectionCarousel products={filteredProductsByCollection} productsPerSet={productsPerSet} />
+						<CollectionCarousel products={filteredProductsByCollection} productsPerSet={productsPerSet} setIsDrawerOpen={setIsDrawerOpen} />
 					</div>
 				</>
 			)}
