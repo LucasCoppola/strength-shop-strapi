@@ -68,7 +68,7 @@ const ProductsPage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) 
 						All Products <span className="block pl-1 text-sm font-thin sm:inline">{sortedProducts.length} products</span>
 					</h2>
 
-					{/* Dropdown Menu */}
+					{/* Sort */}
 					<div className="md:w-52">
 						<Select label="Sort by" className="font-class" value={selectedSort} onChange={(val: string | undefined) => setSelectedSort(val)}>
 							<Option className="font-class" value="Relevance">

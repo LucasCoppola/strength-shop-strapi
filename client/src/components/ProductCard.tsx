@@ -29,9 +29,10 @@ const ProductCard = ({ product, setIsDrawerOpen }: { product: ProductType; setIs
 				}}
 				disabled={isDisabled}
 				title="Add to cart"
-				className={`absolute bottom-[4.5rem] right-[4.5rem] flex items-center rounded-full bg-gray-900 px-6 py-2 opacity-0 transition-colors duration-300 group-hover:opacity-100 ${
+				className={`absolute bottom-[5rem]  flex items-center rounded-full bg-gray-900 px-6 py-2 opacity-0 transition-colors duration-300 group-hover:opacity-100 ${
 					isDisabled ? 'cursor-not-allowed group-hover:opacity-50' : ''
 				}`}
+				style={{ right: '50%', transform: 'translateX(50%)' }}
 			>
 				<MdOutlineAddShoppingCart size={24} color="white" />
 			</button>
