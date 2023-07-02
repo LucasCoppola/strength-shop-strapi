@@ -20,7 +20,6 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 	const handleCollectionFilter = (collection: string) => {
 		navigate(`/products?collection=${encodeURIComponent(collection)}`)
 	}
-
 	return (
 		<>
 			<main className="py-16">
