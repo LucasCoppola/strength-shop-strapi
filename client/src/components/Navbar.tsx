@@ -1,10 +1,19 @@
 import { useState, useEffect, useContext } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
 import { CartContext } from '../contexts/CartProvider'
+import SearchBar from './SearchBar'
+import ProductType from '../types/productType'
 
-const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void }) => {
+type Props = {
+	products: ProductType[]
+	isLoading: boolean
+	isError: boolean
+	setIsDrawerOpen: (open: boolean) => void
+}
+
+const Navbar = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
+	const SearchProps = { products, isError, isLoading }
 	const [cartProducts] = useContext(CartContext)
 	const [isOpen, setIsOpen] = useState(false)
 	const [prevScrollPos, setPrevScrollPos] = useState(0)
@@ -62,17 +71,7 @@ const Navbar = ({ setIsDrawerOpen }: { setIsDrawerOpen: (value: boolean) => void
 						</a>
 					</div>
 					<div className="relative mt-2 flex items-center md:mt-0">
-						<div className="relative mx-4">
-							<span className="absolute inset-y-0 left-0 flex items-center pl-3">
-								<HiOutlineMagnifyingGlass size={24} color="gray" />
-							</span>
-
-							<input
-								type="text"
-								className="rounded-lg border bg-transparent py-2 pl-[2.7rem] text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 md:w-52 lg:w-full"
-								placeholder="Search"
-							/>
-						</div>
+						<SearchBar {...SearchProps} />
 
 						<div className="flex justify-center">
 							<a onClick={() => setIsDrawerOpen(true)} className="relative transform transition-colors duration-300 hover:text-gray-600" href="#">

@@ -9,8 +9,8 @@ const FeaturedCard = ({ product, setIsDrawerOpen }: { product: ProductType; setI
 	const image = import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
 
 	return (
-		<a href={`/products/${product.id}`}>
-			<Card className="w-72">
+		<Card className="w-72">
+			<a href={`/products/${product.id}`}>
 				<CardHeader shadow={false} floated={false} className="h-60">
 					<img src={image} alt={product.attributes.name} className="h-full w-full object-cover" />
 				</CardHeader>
@@ -24,22 +24,22 @@ const FeaturedCard = ({ product, setIsDrawerOpen }: { product: ProductType; setI
 						</Typography>
 					</div>
 				</CardBody>
-				<CardFooter className="pt-0">
-					<Button
-						onClick={() => {
-							setCartProducts([...cartProducts, product])
-							setIsDrawerOpen(true)
-						}}
-						disabled={cartProducts.some((p: ProductType) => p.id === product.id)}
-						ripple={false}
-						fullWidth={true}
-						className="font-class bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-					>
-						Add to Cart
-					</Button>
-				</CardFooter>
-			</Card>
-		</a>
+			</a>
+			<CardFooter className="pt-0">
+				<Button
+					onClick={() => {
+						setCartProducts([...cartProducts, product])
+						setIsDrawerOpen(true)
+					}}
+					disabled={cartProducts.some((p: ProductType) => p.id === product.id)}
+					ripple={false}
+					fullWidth={true}
+					className="font-class bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+				>
+					Add to Cart
+				</Button>
+			</CardFooter>
+		</Card>
 	)
 }
 export default FeaturedCard

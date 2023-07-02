@@ -47,7 +47,7 @@ const App = () => {
 	return (
 		<>
 			<CartProvider>
-				<Navbar setIsDrawerOpen={setIsDrawerOpen} />
+				<Navbar {...Props} setIsDrawerOpen={setIsDrawerOpen} />
 				<Routes>
 					<Route path="/" element={<HomePage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 					<Route path="/products" element={<ProductsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
