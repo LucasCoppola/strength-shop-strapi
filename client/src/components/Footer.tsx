@@ -1,59 +1,95 @@
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { Typography } from '@material-tailwind/react'
+import { FaDribbble, FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa'
+
+const SITEMAP = [
+	{
+		title: 'Company',
+		links: ['About Us', 'Careers', 'Our Team', 'Projects']
+	},
+	{
+		title: 'Help Center',
+		links: ['Discord', 'Twitter', 'GitHub', 'Contact Us']
+	},
+	{
+		title: 'Resources',
+		links: ['Blog', 'Newsletter', 'Free Products', 'Affiliate Program']
+	}
+]
+
+const currentYear = new Date().getFullYear()
 
 function Footer() {
 	return (
-		<footer className="bg-gray-200 text-gray-900">
-			<div className="container mx-auto px-6 py-8">
-				<div className="flex flex-col items-center text-center">
-					<a href="#">
-						<img className="h-7 w-auto" src="https://merakiui.com/images/full-logo.svg" alt="" />
-					</a>
-
-					<div className="-mx-4 mt-6 flex flex-wrap justify-center">
-						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
-							{' '}
-							Home{' '}
-						</a>
-
-						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
-							{' '}
-							About{' '}
-						</a>
-
-						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
-							{' '}
-							Teams{' '}
-						</a>
-
-						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
-							{' '}
-							Privacy{' '}
-						</a>
-
-						<a href="#" className="mx-4 text-sm transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
-							{' '}
-							Cookies{' '}
-						</a>
-					</div>
+		<footer className="relative w-full bg-gray-100">
+			<div className="mx-auto w-full max-w-7xl px-8">
+				<div className="mx-auto grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-3">
+					{SITEMAP.map(({ title, links }, key) => (
+						<div key={key} className="w-full">
+							<Typography variant="small" color="blue-gray" className="mb-4 font-bold uppercase opacity-50">
+								{title}
+							</Typography>
+							<ul className="space-y-1">
+								{links.map((link, key) => (
+									<Typography key={key} as="li" color="blue-gray" className="font-normal">
+										<a href="#" className="inline-block py-1 pr-2 transition-transform hover:scale-105">
+											{link}
+										</a>
+									</Typography>
+								))}
+							</ul>
+						</div>
+					))}
 				</div>
-
-				<hr className="my-6 border-gray-200 dark:border-gray-700 md:my-10" />
-
-				<div className="flex flex-col items-center sm:flex-row sm:justify-between">
-					<p className="text-sm">© Copyright 2021. All Rights Reserved.</p>
-
-					<div className="-mx-2 flex">
-						<a href="#" className="mx-2 transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">
-							<FaFacebook />
-						</a>
-
-						<a href="#" className="mx-2 transition-colors duration-300 hover:text-blue-500" aria-label="Facebook">
-							<FaTwitter />
-						</a>
-
-						<a href="#" className="mx-2 transition-colors duration-300 hover:text-blue-500" aria-label="Github">
-							<FaInstagram />
-						</a>
+				<div className="flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
+					<Typography variant="small" className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0">
+						&copy; {currentYear} <a href="/">Strength Shop</a>. All Rights Reserved.
+					</Typography>
+					<div className="flex gap-4 text-blue-gray-900 sm:justify-center">
+						<Typography
+							as="a"
+							href="https://www.facebook.com/"
+							target="_blank"
+							rel="noreferrer"
+							className="opacity-80 transition-opacity hover:opacity-100"
+						>
+							<FaFacebook className="h-5 w-5" />
+						</Typography>
+						<Typography
+							as="a"
+							href="https://www.instagram.com/"
+							target="_blank"
+							rel="noreferrer"
+							className="opacity-80 transition-opacity hover:opacity-100"
+						>
+							<FaInstagram className="h-5 w-5" />
+						</Typography>
+						<Typography
+							as="a"
+							href="https://www.twitter.com/"
+							target="_blank"
+							rel="noreferrer"
+							className="opacity-80 transition-opacity hover:opacity-100"
+						>
+							<FaTwitter className="h-5 w-5" />
+						</Typography>
+						<Typography
+							as="a"
+							href="https://www.github.com/"
+							target="_blank"
+							rel="noreferrer"
+							className="opacity-80 transition-opacity hover:opacity-100"
+						>
+							<FaGithub className="h-5 w-5" />
+						</Typography>
+						<Typography
+							as="a"
+							href="https://dribbble.com/"
+							target="_blank"
+							rel="noreferrer"
+							className="opacity-80 transition-opacity hover:opacity-100"
+						>
+							<FaDribbble className="h-5 w-5" />
+						</Typography>
 					</div>
 				</div>
 			</div>
