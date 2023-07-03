@@ -60,8 +60,8 @@ const Navbar = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 					} absolute inset-x-0 z-20 bg-gray-50 py-4 transition-all duration-300 ease-in-out md:relative md:top-0 md:mt-0 md:flex md:translate-x-0 md:items-center md:bg-transparent md:p-0 md:opacity-100`}
 				>
 					<div className="flex flex-col px-2 md:flex-row md:items-center md:p-0 md:opacity-100 lg:mr-8 xl:mr-28 2xl:mr-52">
-						<a href="#" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">
-							About
+						<a href="/" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">
+							Home
 						</a>
 						<a href="/products" className="transform rounded-lg px-2.5 py-2 transition-colors duration-300 md:mx-2">
 							Shop

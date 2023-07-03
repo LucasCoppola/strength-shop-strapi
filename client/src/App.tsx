@@ -5,6 +5,7 @@ import ProductsPage from './pages/ProductsPage'
 import ProductDetailsPage from './pages/ProductDetailsPage'
 import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 import ProductType from './types/productType'
 import fetchProducts from './api/fetchProducts'
@@ -53,6 +54,7 @@ const App = () => {
 					<Route path="/products" element={<ProductsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
 					<Route path="/checkout" element={<CheckoutPage isError={status.isError} isLoading={status.isLoading} />} />
 					<Route path="/products/:id" element={<ProductDetailsPage {...Props} setIsDrawerOpen={setIsDrawerOpen} />} />
+					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 				<CartPage isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
 			</CartProvider>

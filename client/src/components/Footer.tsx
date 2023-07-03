@@ -20,9 +20,9 @@ const currentYear = new Date().getFullYear()
 
 function Footer() {
 	return (
-		<footer className="relative w-full bg-gray-100">
+		<footer id="footer" className="relative w-full bg-gray-100">
 			<div className="mx-auto w-full max-w-7xl px-8">
-				<div className="mx-auto grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-3">
+				<div className="grid grid-cols-1 justify-center gap-6 py-12 md:grid-cols-3">
 					{SITEMAP.map(({ title, links }, key) => (
 						<div key={key} className="w-full">
 							<Typography variant="small" color="blue-gray" className="mb-4 font-bold uppercase opacity-50">
@@ -31,9 +31,7 @@ function Footer() {
 							<ul className="space-y-1">
 								{links.map((link, key) => (
 									<Typography key={key} as="li" color="blue-gray" className="font-normal">
-										<a href="#" className="inline-block py-1 pr-2 transition-transform hover:scale-105">
-											{link}
-										</a>
+										<a className="inline-block py-1 pr-2 transition-transform hover:scale-105">{link}</a>
 									</Typography>
 								))}
 							</ul>

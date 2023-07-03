@@ -40,7 +40,7 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 						</div>
 						<div className="mb-4">
 							<label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
-								Name on Card
+								Full Name
 							</label>
 							<input
 								type="text"
