@@ -39,7 +39,7 @@ const Navbar = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 			<div className="container mx-auto px-6 py-3 text-gray-700 md:flex md:justify-between md:py-2">
 				<div className="flex items-center justify-between">
 					<a href="/">
-						<img className="h-6 w-auto sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
+						<img className="h-6 w-auto sm:h-10" src="../../assets/logo.png" alt="logo" />
 					</a>
 
 					<div className="flex md:hidden">
