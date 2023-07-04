@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { CartContext } from '../contexts/CartProvider'
 import { Spinner } from '@material-tailwind/react'
 import ProductType from '../types/productType'
+import CheckoutForm from '../components/CheckoutForm'
 
 const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boolean }) => {
 	const [cartProducts] = useContext(CartContext)
@@ -12,136 +13,19 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 	}
 
 	const handleSubtotal = () => {
-		return cartProducts.reduce((total: number, product: ProductType) => total + product.attributes.price * product.attributes.quantity, 0)
+		return cartProducts.reduce((total: number, product: ProductType) => total + product.attributes.price * product.attributes.quantity, 0).toFixed(2)
+	}
+
+	const handleTotal = () => {
+		return cartProducts.reduce((total: number, product: ProductType) => total + product.attributes.price * product.attributes.quantity, 20).toFixed(2)
 	}
 
 	return (
 		<div className="flex justify-center py-8">
 			<div className="mx-4 w-full max-w-5xl rounded-md bg-gray-50">
 				<div className="flex flex-col md:flex-row">
-					{/* Payment Info */}
-					<div className="w-full border-b px-16 py-8 md:w-2/3 md:border-b-0 md:border-r">
-						<button className="my-8 flex w-full justify-center rounded-md bg-[#FFBF00] py-2 text-sm font-semibold hover:bg-[#FFA500]">
-							<img src="../../assets/paypal.png" alt="paypal logo" className="w-30 h-7 object-cover" />
-						</button>
+					<CheckoutForm handleTotal={handleTotal} />
 
-						<hr className="my-4" />
-
-						<div className="mb-4">
-							<label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
-								Email Address
-							</label>
-							<input
-								type="email"
-								id="email"
-								name="email"
-								className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							/>
-						</div>
-						<div className="mb-4">
-							<label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
-								Full Name
-							</label>
-							<input
-								type="text"
-								id="name"
-								name="name"
-								className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							/>
-						</div>
-						<div className="mb-4">
-							<label htmlFor="cardNumber" className="mb-1 block text-sm font-medium text-gray-700">
-								Card Number
-							</label>
-							<input
-								type="text"
-								id="cardNumber"
-								name="cardNumber"
-								className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							/>
-						</div>
-						<div className="mb-4 flex items-center">
-							<div className="mr-2 w-1/2">
-								<label htmlFor="expiration" className="mb-1 block text-sm font-medium text-gray-700">
-									Expiration Date
-								</label>
-								<input
-									type="text"
-									id="expiration"
-									name="expiration"
-									className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								/>
-							</div>
-							<div className="ml-2 w-1/2">
-								<label htmlFor="cvc" className="mb-1 block text-sm font-medium text-gray-700">
-									CVC
-								</label>
-								<input
-									type="text"
-									id="cvc"
-									name="cvc"
-									className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								/>
-							</div>
-						</div>
-						<div className="mb-4">
-							<label htmlFor="address" className="mb-1 block text-sm font-medium text-gray-700">
-								Address
-							</label>
-							<input
-								type="text"
-								id="address"
-								name="address"
-								className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							/>
-						</div>
-						<div className="mb-4 flex items-center">
-							<div className="mr-2 w-1/3">
-								<label htmlFor="city" className="mb-1 block text-sm font-medium text-gray-700">
-									City
-								</label>
-								<input
-									type="text"
-									id="city"
-									name="city"
-									className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								/>
-							</div>
-							<div className="mr-2 w-1/3">
-								<label htmlFor="state" className="mb-1 block text-sm font-medium text-gray-700">
-									State/Province
-								</label>
-								<input
-									type="text"
-									id="state"
-									name="state"
-									className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								/>
-							</div>
-							<div className="ml-2 w-1/3">
-								<label htmlFor="postalCode" className="mb-1 block text-sm font-medium text-gray-700">
-									Postal Code
-								</label>
-								<input
-									type="text"
-									id="postalCode"
-									name="postalCode"
-									className="block w-full rounded-md border border-gray-300 px-3 py-1 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								/>
-							</div>
-						</div>
-						<div className="mb-4 flex items-center">
-							<input type="checkbox" id="terms" name="terms" className="mr-2" />
-							<label htmlFor="terms" className="text-sm text-gray-700">
-								Save this information for next time
-							</label>
-						</div>
-						<button className="w-full rounded-md bg-gray-400 px-4 py-2 text-base font-semibold text-gray-800 hover:bg-gray-500">
-							Pay ${handleSubtotal() + 20}
-						</button>
-					</div>
-
-					{/* Product List */}
 					<div className="w-full px-6 py-8 md:w-1/3">
 						{isLoading ? (
 							<Spinner className="m-auto flex h-10 w-10" color="gray" />
@@ -204,7 +88,7 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 							<hr className="my-4" />
 							<p className="flex justify-between text-xl font-semibold text-gray-800">
 								<span>Total</span>
-								<span>${handleSubtotal() + 20}</span>
+								<span>${handleTotal()}</span>
 							</p>
 						</div>
 					</div>
