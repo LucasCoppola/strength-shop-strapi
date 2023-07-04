@@ -29,7 +29,7 @@ const SearchBar = ({ products, isLoading, isError }: { products: ProductType[]; 
 			</span>
 
 			<input
-				className="rounded-lg border bg-transparent py-2 pl-[2.7rem] text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 md:w-52 lg:w-full"
+				className="rounded-lg border-[1.5px] border-gray-400 bg-transparent py-2 pl-[2.7rem] text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 md:w-52 lg:w-full"
 				placeholder="Search"
 				onClick={() => setOpen(true)}
 			/>
@@ -70,7 +70,7 @@ const SearchBar = ({ products, isLoading, isError }: { products: ProductType[]; 
 				) : (
 					<List className="h-96 overflow-y-auto">
 						{results?.map((product: ProductType) => (
-							<a href={`/products/${product.id}`} className="text-initial">
+							<a key={product.id} href={`/products/${product.id}`} className="text-initial">
 								<ListItem className="font-class group rounded px-3 py-1.5 text-sm text-blue-gray-700">
 									<img src={handleImage(product)} alt={product.attributes.name} className="mr-2 h-12 w-12 rounded-lg object-cover" />
 									<h5>{product.attributes.name}</h5>

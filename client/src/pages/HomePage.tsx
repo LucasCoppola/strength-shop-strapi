@@ -1,11 +1,12 @@
+import { useState } from 'react'
 import FeaturedCard from '../components/FeaturedCard'
 import CategoryImages from '../api/CategoryImages'
 import ProductType from '../types/productType'
 import { useNavigate } from 'react-router-dom'
-import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
-import { Spinner } from '@material-tailwind/react'
+import { Spinner, Dialog } from '@material-tailwind/react'
 import { RiTruckLine, RiCustomerServiceFill } from 'react-icons/ri'
-import { BiWorld, BiCheckShield } from 'react-icons/bi'
+import { BiWorld, BiCheckShield, BiCalendar } from 'react-icons/bi'
+import { HiOutlineHandRaised } from 'react-icons/hi2'
 
 type Props = {
 	products: ProductType[]
@@ -15,10 +16,29 @@ type Props = {
 }
 
 const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
+	const [open, setOpen] = useState(false)
+	const [email, setEmail] = useState('')
+	const [validEmail, setValidEmail] = useState(true)
 	const navigate = useNavigate()
 
 	const handleCollectionFilter = (collection: string) => {
 		navigate(`/products?collection=${encodeURIComponent(collection)}`)
+	}
+
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value)
+		setValidEmail(true)
+	}
+
+	const handleSubmit = () => {
+		const emailRegex = /^\S+@\S+\.\S+$/
+		const isValidEmail = emailRegex.test(email)
+		setValidEmail(isValidEmail)
+
+		if (isValidEmail) {
+			setOpen(true)
+			setEmail('')
+		}
 	}
 	return (
 		<>
@@ -147,9 +167,10 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 					<div className="mx-auto max-w-7xl px-6 lg:px-8">
 						<div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
 							<div className="max-w-xl lg:max-w-lg">
-								<h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">Subscribe to our newsletter.</h2>
+								<h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Subscribe to our newsletter.</h2>
 								<p className="mt-4 text-lg leading-8 text-gray-800">
-									Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt dolore.
+									Stay up to date with the latest news, offers, and updates from Strength Shop. Subscribe to our newsletter to receive weekly
+									articles and exclusive content directly to your inbox.
 								</p>
 								<div className="mt-6 flex max-w-md gap-x-4">
 									<label htmlFor="email-address" className="sr-only">
@@ -159,14 +180,18 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 										id="email-address"
 										name="email"
 										type="email"
-										autoComplete="email"
 										required
-										className="min-w-0 flex-auto rounded-md border px-3.5 py-2 shadow-sm sm:text-sm sm:leading-6"
+										className={`min-w-0 flex-auto rounded-md border px-3.5 py-2 shadow-sm sm:text-sm sm:leading-6 ${
+											!validEmail ? 'border-[1.5px] border-red-500' : ''
+										}`}
 										placeholder="Enter your email"
+										value={email}
+										onChange={handleEmailChange}
 									/>
 									<button
 										type="submit"
-										className="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white  shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+										onClick={handleSubmit}
+										className="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 									>
 										Subscribe
 									</button>
@@ -175,26 +200,34 @@ const HomePage = ({ products, isLoading, isError, setIsDrawerOpen }: Props) => {
 							<dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
 								<div className="flex flex-col items-start">
 									<div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-										<CalendarDaysIcon className="h-6 w-6 " aria-hidden="true" />
+										<BiCalendar className="h-6 w-6" aria-hidden="true" />
 									</div>
-									<dt className="mt-4 font-semibold ">Weekly articles</dt>
+									<dt className="mt-4 font-semibold">Weekly articles</dt>
 									<dd className="mt-2 leading-7 text-gray-700">
-										Non laboris consequat cupidatat laborum magna. Eiusmod non irure cupidatat duis commodo amet.
+										Get valuable insights and tips from our experts with our weekly articles covering various aspects of strength training
+										and fitness.
 									</dd>
 								</div>
 								<div className="flex flex-col items-start">
 									<div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-										<HandRaisedIcon className="h-6 w-6 " aria-hidden="true" />
+										<HiOutlineHandRaised className="h-6 w-6" aria-hidden="true" />
 									</div>
-									<dt className="mt-4 font-semibold ">No spam</dt>
+									<dt className="mt-4 font-semibold">No spam</dt>
 									<dd className="mt-2 leading-7 text-gray-700">
-										Officia excepteur ullamco ut sint duis proident non adipisicing. Voluptate incididunt anim.
+										We respect your privacy. You can trust us to never share your information or send you spam emails. Your email address is
+										safe with us.
 									</dd>
 								</div>
 							</dl>
 						</div>
 					</div>
 				</div>
+				<Dialog handler={() => setOpen(false)} open={open}>
+					<div className="font-class rounded-lg bg-white p-6 shadow-md">
+						<h3 className="mb-2 text-lg font-semibold">Thank you for subscribing to our newsletter!</h3>
+						<p className="text-gray-800">You will now receive the latest news, articles, and exclusive content directly in your inbox.</p>
+					</div>
+				</Dialog>
 			</section>
 		</>
 	)
