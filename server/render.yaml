@@ -3,7 +3,7 @@ services:
     name: strapi
     env: node
     plan: starter
-    buildCommand: yarn build
+    buildCommand: yarn install --frozen-lockfile && yarn build
     startCommand: yarn develop
     healthCheckPath: /_health
     envVars:
