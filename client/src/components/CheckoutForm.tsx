@@ -1,21 +1,22 @@
+import { useState, useContext } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { useState } from 'react'
 import * as Yup from 'yup'
+import { BsCheckCircle } from 'react-icons/bs'
+import { Dialog, List, ListItem, Spinner } from '@material-tailwind/react'
+import ProductType from '../types/productType'
+import { CartContext } from '../contexts/CartProvider'
 
-interface FormValues {
-	email: string
-	name: string
-	cardNumber: string
-	expiration: string
-	cvc: string
-	address: string
-	city: string
-	state: string
-	postalCode: string
+type Props = {
+	handleTotal: () => string
+	isLoading: boolean
+	isError: boolean
 }
 
-const CheckoutForm = ({ handleTotal }: { handleTotal: () => string }) => {
+const CheckoutForm = ({ handleTotal, isLoading, isError }: Props) => {
+	const [cartProducts] = useContext(CartContext)
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [payment, setPayment] = useState('')
+	const [isOpen, setIsOpen] = useState(false)
 
 	const initialValues = {
 		email: '',
@@ -40,33 +41,40 @@ const CheckoutForm = ({ handleTotal }: { handleTotal: () => string }) => {
 		postalCode: Yup.string().length(6, 'Must be exactly 6 digits').required('Required')
 	})
 
-	const onSubmit = async (values: FormValues) => {
+	const onSubmit = async (): Promise<void> => {
 		setIsSubmitting(true)
-		window.open('https://www.paypal.com/us/home', '_blank')
+		if (payment === 'paypal') {
+			window.open('https://www.paypal.com/us/home', 'popup', 'rel=noopener noreferrer')
+		}
+
 		setTimeout(() => {
-			// setIsOpen(true)
+			setIsOpen(true)
 			setIsSubmitting(false)
-		}, 2000)
+		}, 1000)
 	}
 
 	const renderError = (message: string) => <div>{message && <p className="absolute text-xs text-red-400">{message}</p>}</div>
+
+	const handleImage = (product: ProductType) => {
+		return import.meta.env.VITE_IMAGE + product.attributes.image.data.attributes.url
+	}
+
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={validationSchema}
-			onSubmit={async (values, { resetForm }) => {
-				await onSubmit(values)
+			onSubmit={async (_, { resetForm }) => {
+				await onSubmit()
 				resetForm()
 			}}
 		>
 			<Form className="w-full border-b px-16 py-8 md:w-2/3 md:border-b-0 md:border-r">
 				<button
+					className="my-8 flex w-full cursor-pointer justify-center rounded-md bg-[#FFBF00] py-2 text-sm font-semibold hover:bg-[#FFA500]"
+					onClick={() => setPayment('paypal')}
 					disabled={isSubmitting}
-					className="my-8 flex w-full justify-center rounded-md bg-[#FFBF00] py-2 text-sm font-semibold hover:bg-[#FFA500]"
 				>
-					<a href="https://www.paypal.com/us/home" target="_blank" rel="noreferrer">
-						<img src="../../assets/paypal.png" alt="paypal logo" className="w-30 h-7 object-cover" />
-					</a>
+					<img src="../../assets/paypal.png" alt="paypal logo" className="w-30 h-7 object-cover" />
 				</button>
 
 				<hr className="my-4" />
@@ -103,7 +111,7 @@ const CheckoutForm = ({ handleTotal }: { handleTotal: () => string }) => {
 					</label>
 					<Field
 						name="cardNumber"
-						type="number"
+						type="tel"
 						id="cardNumber"
 						maxLength={16}
 						minLength={16}
@@ -193,9 +201,54 @@ const CheckoutForm = ({ handleTotal }: { handleTotal: () => string }) => {
 						Save this information for next time
 					</label>
 				</div>
-				<button className="w-full rounded-md bg-gray-400 px-4 py-2 text-base font-semibold text-gray-800 hover:bg-gray-500">
+				<button
+					type="submit"
+					disabled={isSubmitting}
+					onClick={() => setPayment('manual')}
+					className="w-full rounded-md bg-gray-400 px-4 py-2 text-base font-semibold text-gray-800 hover:bg-gray-500"
+				>
 					Pay ${handleTotal()}
 				</button>
+
+				<Dialog
+					open={isOpen}
+					handler={() => setIsOpen(false)}
+					animate={{
+						mount: { scale: 1, y: 0 },
+						unmount: { scale: 0.9, y: -100 }
+					}}
+					className="p-4"
+				>
+					<div className="font-class flex-col">
+						<BsCheckCircle size={50} className="mx-auto mb-3 text-green-500" />
+						<h2 className="mb-1 text-center text-2xl font-semibold text-gray-800">Thank you for your purchase!</h2>
+						{isLoading ? (
+							<Spinner className="m-auto flex h-10 w-10" color="gray" />
+						) : isError ? (
+							<p className="mr-auto flex text-xl font-semibold text-gray-800">Error fetching products</p>
+						) : (
+							<List className="custom-scrollbar max-h-80 list-disc overflow-y-auto pl-6">
+								{cartProducts.map((product: ProductType) => (
+									<a href={`/products/${product.id}`} key={product.id}>
+										<ListItem key={product.id} className="font-class group rounded px-3 py-1.5 text-sm text-blue-gray-700">
+											<div className="relative">
+												<img
+													src={handleImage(product)}
+													alt={product.attributes.name}
+													className="mr-2 h-12 w-12 rounded-lg object-cover"
+												/>
+												<span className="absolute right-0 top-0 w-6 rounded-full bg-gray-500 p-1 text-center text-xs text-white">
+													{product.attributes.quantity}
+												</span>
+											</div>
+											<h5>{product.attributes.name}</h5>
+										</ListItem>
+									</a>
+								))}
+							</List>
+						)}
+					</div>
+				</Dialog>
 			</Form>
 		</Formik>
 	)

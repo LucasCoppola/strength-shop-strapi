@@ -24,7 +24,7 @@ const CheckoutPage = ({ isError, isLoading }: { isError: boolean; isLoading: boo
 		<div className="flex justify-center py-8">
 			<div className="mx-4 w-full max-w-5xl rounded-md bg-gray-50">
 				<div className="flex flex-col md:flex-row">
-					<CheckoutForm handleTotal={handleTotal} />
+					<CheckoutForm handleTotal={handleTotal} isLoading={isLoading} isError={isError} />
 
 					<div className="w-full px-6 py-8 md:w-1/3">
 						{isLoading ? (
