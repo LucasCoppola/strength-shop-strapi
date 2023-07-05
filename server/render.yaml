@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: strapi
+    env: node
+    plan: starter
+    buildCommand: yarn install --frozen-lockfile
+    startCommand: yarn develop
+    healthCheckPath: /_health
+    envVars:
+      - key: NODE_VERSION
+        value: ~16.13.0
+      - key: NODE_ENV
+        value: production
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dotpfjpno
+      - key: CLOUDINARY_API_KEY
+        value: 215369265455175
+      - key: CLOUDINARY_API_SECRET
+        value: bs_XWd5cut8ErmPez_cMexlUiQc
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_JWT_SECRET
+        generateValue: true
+      - key: APP_KEYS
+        generateValue: true
