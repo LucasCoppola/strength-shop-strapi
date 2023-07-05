@@ -1,5 +1,5 @@
 import { Typography } from '@material-tailwind/react'
-import { FaDribbble, FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa'
 
 const SITEMAP = [
 	{
@@ -72,21 +72,12 @@ function Footer() {
 						</Typography>
 						<Typography
 							as="a"
-							href="https://www.github.com/"
+							href="https://github.com/LucasCoppola"
 							target="_blank"
 							rel="noreferrer"
 							className="opacity-80 transition-opacity hover:opacity-100"
 						>
 							<FaGithub className="h-5 w-5" />
-						</Typography>
-						<Typography
-							as="a"
-							href="https://dribbble.com/"
-							target="_blank"
-							rel="noreferrer"
-							className="opacity-80 transition-opacity hover:opacity-100"
-						>
-							<FaDribbble className="h-5 w-5" />
 						</Typography>
 					</div>
 				</div>
