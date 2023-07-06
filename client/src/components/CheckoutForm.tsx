@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { BsCheckCircle } from 'react-icons/bs'
-import { Dialog, List, ListItem, Spinner } from '@material-tailwind/react'
+import { Dialog, List, ListItem, Spinner, Typography } from '@material-tailwind/react'
 import ProductType from '../types/productType'
 import { CartContext } from '../contexts/CartProvider'
 
@@ -15,7 +15,6 @@ type Props = {
 const CheckoutForm = ({ handleTotal, isLoading, isError }: Props) => {
 	const [cartProducts] = useContext(CartContext)
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [payment, setPayment] = useState('')
 	const [isOpen, setIsOpen] = useState(false)
 
 	const initialValues = {
@@ -43,9 +42,6 @@ const CheckoutForm = ({ handleTotal, isLoading, isError }: Props) => {
 
 	const onSubmit = async (): Promise<void> => {
 		setIsSubmitting(true)
-		if (payment === 'paypal') {
-			window.open('https://www.paypal.com/us/home', 'popup', 'rel=noopener noreferrer')
-		}
 
 		setTimeout(() => {
 			setIsOpen(true)
@@ -69,16 +65,7 @@ const CheckoutForm = ({ handleTotal, isLoading, isError }: Props) => {
 			}}
 		>
 			<Form className="w-full border-b px-16 py-8 md:w-2/3 md:border-b-0 md:border-r">
-				<button
-					className="my-8 flex w-full cursor-pointer justify-center rounded-md bg-[#FFBF00] py-2 text-sm font-semibold hover:bg-[#FFA500]"
-					onClick={() => setPayment('paypal')}
-					disabled={isSubmitting}
-				>
-					<img src="../../assets/paypal.png" alt="paypal logo" className="w-30 h-7 object-cover" />
-				</button>
-
-				<hr className="my-4" />
-
+				<Typography className="font-class mb-6 text-3xl font-bold text-gray-800">Payment Details</Typography>
 				<div className="relative mb-4">
 					<label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
 						Email Address
@@ -204,7 +191,6 @@ const CheckoutForm = ({ handleTotal, isLoading, isError }: Props) => {
 				<button
 					type="submit"
 					disabled={isSubmitting}
-					onClick={() => setPayment('manual')}
 					className="w-full rounded-md bg-gray-400 px-4 py-2 text-base font-semibold text-gray-800 hover:bg-gray-500"
 				>
 					Pay ${handleTotal()}
