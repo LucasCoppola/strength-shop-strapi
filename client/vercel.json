@@ -1,0 +1,8 @@
+{
+	"redirects": [
+		{ "source": "/products", "destination": "/ProductPages" },
+		{ "source": "/products/:id", "destination": "/ProductPages/:id" },
+		{ "source": "/checkout", "destination": "/CheckoutPage" },
+		{ "source": "/:any*", "destination": "/NotFoundPage" }
+	]
+}
